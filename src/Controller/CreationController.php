@@ -79,7 +79,7 @@ class CreationController extends AbstractController {
         $chapitres = $repository->findBy(['histoire' => $histoire]);
 
 
-        $form = $this->createForm(SuiteType::class, $suite, ['chapitres'=>$chapitres]);
+        $form = $this->createForm(SuiteType::class, $suite);
         $form->handleRequest($request);
 
 
@@ -95,7 +95,6 @@ class CreationController extends AbstractController {
 
         return $this->render('creation/lier_chapitre.html.twig', [
             'suite' => $suite,
-            'chapitres' => $chapitres,
             'formCreerSuite' => $form->createView()
         ]);
     }

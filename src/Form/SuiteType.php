@@ -26,11 +26,5 @@ class SuiteType extends AbstractType {
         $form = $event->getForm();
         $suite = $event->getData();
 
-        $repository = $this->getDoctrine()->getRepository(Histoire::class);
-        $histoire = $repository->findBy(['user' => $this->getUser()]);
-
-        $repository = $this->getDoctrine()->getRepository(Chapitre::class);
-        $chapitres = $repository->findBy(['histoire' => $histoire]);
-
     }
 }
