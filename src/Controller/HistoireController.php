@@ -58,7 +58,10 @@ class HistoireController extends AbstractController
      */
     public function show(Histoire $histoire): Response
     {
-        return $this->render('histoire/show.html.twig', ['histoire' => $histoire]);
+        $parent = $em = $this->getDoctrine()->getManager()->getRepository(Chapitre::class)
+            ->findOneBy(['histoire' => $histoire,'premier' => true]);
+
+        return $this->render('histoire/show.html.twig', ['histoire' => $histoire,'parent'=> $parent]);
     }
 
     /**
