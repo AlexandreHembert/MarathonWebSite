@@ -185,5 +185,4 @@ class Histoire {
 
         return $this;
     }
-
 }

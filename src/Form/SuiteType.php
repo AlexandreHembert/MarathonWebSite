@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\Suite;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class SuiteType extends AbstractType {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder
+            ->add('chapitreSource')
+            ->add('chapitreDestination')
+            ->add('reponse');
+    }
+
+    public function configureOptions(OptionsResolver $resolver) {
+        $resolver->setDefaults([
+            'data_class' => Suite::class,
+        ]);
+    }
+
+    public function preSetData(FormEvent $event){
+        $form = $event->getForm();
+        $suite = $event->getData();
+
+        $repository = $this->getDoctrine()->getRepository(Histoire::class);
+        $histoire = $repository->findBy(['user' => $this->getUser()]);
+
+        $repository = $this->getDoctrine()->getRepository(Chapitre::class);
+        $chapitres = $repository->findBy(['histoire' => $histoire]);
+
+    }
+}

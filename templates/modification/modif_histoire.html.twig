@@ -8,4 +8,7 @@
     {{ form_widget(formModifHistoire) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
     {{ form_end(formModifHistoire) }}
+
+    {{ include('suppression/suppression_histoire.html.twig') }}
+
 {% endblock %}
