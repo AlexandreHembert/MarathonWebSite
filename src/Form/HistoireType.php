@@ -16,7 +16,7 @@ class HistoireType extends AbstractType
             ->add('titre')
             ->add('pitch')
             ->add('photo')
-            ->add('actif')
+            ->add('actif',CheckboxType::class)
             ->add('genre')
             ->add('user')
         ;
