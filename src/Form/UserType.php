@@ -49,13 +49,6 @@ class UserType extends AbstractType {
         $form = $event->getForm();
         $user = $event->getData();
 
-        /* @Explain Si Role Super ADMIN alors on ajoute un champ active sinon on enleve le role
-         * if($this->securityChecker->isGranted('ROLE_SUPER_ADMIN') === true){
-         * $form->add('enabled');
-         * }else{
-         * $form->remove('roles');
-         * }
-         */
         if($this->securityChecker->isGranted('ROLE_ADMIN') === true){
             $form ->add('roles', RolesType::class);
 
