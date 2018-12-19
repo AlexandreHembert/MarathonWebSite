@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Histoires edition{% endblock %}
+
+{% block body %}
+
+    <h1>Edit Histoire</h1>
+    {{ form_start(formModifHistoire) }}
+    {{ form_widget(formModifHistoire) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(formModifHistoire) }}
+
+    {{ include('histoire/delete.html.twig') }}
+
+{% endblock %}
