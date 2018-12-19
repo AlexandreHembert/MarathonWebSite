@@ -3,11 +3,10 @@ Affichage d'une histoire
 
 
 
-{% if  parent.id is defined %}
-
-<a href="{{ path("chapitre_new",{'id':histoire.id,'chapitre':parent.id}) }}"> Ajouter le chapitre principal </a>
-{% else %}
+{% if parent.id is not defined %}
     <a href="{{ path("chapitre_new",{'id':histoire.id}) }}">
-        Ajouter une suite </a>
+        Ajouter le chapitre principal </a>
+{% else %}
+    <a href="{{ path("chapitre_new",{'id':histoire.id,'chapitre':parent.id}) }}"> Ajouter une suite </a>
 {% endif %}
 
