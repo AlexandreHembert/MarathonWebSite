@@ -22,7 +22,7 @@ class ChapitreType extends AbstractType {
             ->add('titreCourt')
             ->add('photo')
             ->add('question')
-            ->add('premier',CheckboxType::class)
+            ->add('premier',CheckboxType::class, array('required' => false))
             ->add('histoire');
 
         $builder->addEventListener(
@@ -52,7 +52,7 @@ class ChapitreType extends AbstractType {
 
         }
 
-        if($this->chapitre === null){
+        if($this->getParent() !== null){
             $form->remove('premier');
             $chapitre->setPremier(true);
         }
