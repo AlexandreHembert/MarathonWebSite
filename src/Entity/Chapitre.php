@@ -213,7 +213,7 @@ class Chapitre {
 
     public function __toString() {
         // TODO: Implement __toString() method.
-        return $this->getTitre();
+        return $this->getHistoire()->getTitre()." - ".$this->getTitre();
     }
 
 
