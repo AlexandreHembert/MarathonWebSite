@@ -30,7 +30,9 @@ class HistoireController extends AbstractController
         $histoires = $this->getDoctrine()
             ->getRepository(Histoire::class)
             ->findAll();
-        return $this->render('histoire/index.html.twig', ['histoires' => $histoires]);
+        return $this->render('histoire/index.html.twig', [
+            'histoires' => $histoires,
+        ]);
     }
     /**
      * @Route("/new", name="histoire_new", methods="GET|POST")
@@ -60,7 +62,7 @@ class HistoireController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="histoire_show", methods="GET|POST")
+     * @Route("/{id}/edit", name="histoire_edit", methods="GET|POST")
      */
     public function edit(Request $request, Histoire $histoire): Response
     {
