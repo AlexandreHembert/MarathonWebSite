@@ -79,10 +79,8 @@ class CreationController extends AbstractController {
         $chapitres = $repository->findBy(['histoire' => $histoire]);
 
 
-        $form = $this->createForm(SuiteType::class, $suite);
+        $form = $this->createForm(SuiteType::class, $suite, ['histoire' => $histoire, 'chapitres' => $chapitres]);
         $form->handleRequest($request);
-
-
 
 
         if ($form->isSubmitted() && $form->isValid()) {
