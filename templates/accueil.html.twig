@@ -1,8 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Page admin{% endblock %}
+{% block title %}accueil{% endblock %}
 
 {% block body %}
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <title>Intégration</title>
+    </head>
+
+    <body>
+        <div class="loader">
+            11/19
+            <div class="loader__bar" id="bar-0"></div>
+            <div class="loader__text" id="percent-0">
+            </div>
+        </div>
+        <header>
+            <a href="/"><img src="images/logo.svg" alt="Logo Base 11/19"></a>
+        </header>
+        <div class="landing">
+            <div class="landing__title">Pour une meilleure expérience, veuillez vous inscrire ou vous connecter. </div>
+            <div class="landing__buttons">
+                <a href="{{ path('user_registration') }}">s'inscrire</a>
+                <a href="{{ path('app_login') }}">se connecter</a>
+            </div>
+            <div class="landing__guest"><p>Continuer en tant qu’invité</p></div>
+        </div>
+
+
+
+    </body>
 
 
 {% endblock %}

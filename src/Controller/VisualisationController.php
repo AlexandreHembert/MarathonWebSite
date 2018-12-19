@@ -36,7 +36,7 @@ class VisualisationController extends AbstractController
 
 
     /**
-     * @Route("/", name="visualisation")
+     * @Route("/histoires", name="visualisation")
      */
     public function index(HistoireRepository $repo,Request $request)
     {

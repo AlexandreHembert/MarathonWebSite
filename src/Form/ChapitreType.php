@@ -16,7 +16,9 @@ class ChapitreType extends AbstractType {
             ->add('titreCourt')
             ->add('photo')
             ->add('question')
-            ->add('premier',CheckboxType::class)
+            ->add('premier',CheckboxType::class, [
+                'required' => false
+            ])
             ->add('histoire');
     }
 

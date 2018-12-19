@@ -22,7 +22,7 @@ class AccueilController extends AbstractController
     {
         //return new Response("abc");
 
-        return new Response($this->render('accueil.html.twig',array()));
+        return new Response($this->renderView('accueil.html.twig',array()));
 
     }
 }
