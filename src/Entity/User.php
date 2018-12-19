@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -50,12 +52,18 @@ class User implements UserInterface
      */
     private $plainPassword;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Avis", mappedBy="users")
+     */
+    private $avis;
+
 
     /**
      * User constructor.
      */
-    public function __construct() {
-
+    public function __construct()
+    {
+        $this->avis = new ArrayCollection();
     }
 
 
@@ -178,6 +186,37 @@ class User implements UserInterface
     public function __toString() {
         // TODO: Implement __toString() method.
         return $this->getNom();
+    }
+
+    /**
+     * @return Collection|Avis[]
+     */
+    public function getAvis(): Collection
+    {
+        return $this->avis;
+    }
+
+    public function addAvi(Avis $avi): self
+    {
+        if (!$this->avis->contains($avi)) {
+            $this->avis[] = $avi;
+            $avi->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvi(Avis $avi): self
+    {
+        if ($this->avis->contains($avi)) {
+            $this->avis->removeElement($avi);
+            // set the owning side to null (unless already changed)
+            if ($avi->getUsers() === $this) {
+                $avi->setUsers(null);
+            }
+        }
+
+        return $this;
     }
 
 
