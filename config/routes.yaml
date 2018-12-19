@@ -6,3 +6,8 @@ app_logout:
 
 #app_login:
 #    path: /login
+
+
+admin :
+  path: /admin
+
