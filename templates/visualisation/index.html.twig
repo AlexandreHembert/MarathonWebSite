@@ -34,13 +34,27 @@
 
                 <div class="card card-body flex-fill">
 
-                    <h5 class="card-title">
+
+
+
+                    <h2 class="card-title">
                         {{ histoire.titre }}
-                    </h5>
+                    </h2>
                     <p class="card-text"> {{ histoire.pitch }} </p>
                     <p class="card-text"> <img src="https://bathboxoffice.org.uk/wp-content/uploads/2017/10/the-octet-logo-mall-2.jpg"></p>
-                    <div class="text-primary" style="font-weight: bold;font-size:2rem"> Actif : {{ histoire.actif ? 'Oui' : 'Non' }}  </div>
+                    <div class="text-primary" style="font-weight: bold;font-size:2rem"> {{ histoire.actif ? 'Actif' : 'Non actif' }}  </div>
 
+
+
+
+                    {{ form_start(formAvis) }}
+                    <small> Je recommande </small>
+
+                    {{ form_row(formAvis.positif) }}
+
+                    <div class="mt-4 text-center">
+                        <button id="review_submit"  class="red_button message_submit_btn trans_300"  > Envoyer</button>
+                    </div>
                 </div>
 
             </div>
