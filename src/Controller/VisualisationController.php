@@ -3,7 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Avis;
+use App\Entity\Genre;
+use App\Entity\HistoireSearch;
+use App\Entity\User;
 use App\Form\AvisType;
+use App\Form\HistoireSearchType;
+use App\Repository\ChapitreRepository;
 use App\Repository\HistoireRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,12 +38,24 @@ class VisualisationController extends AbstractController
     /**
      * @Route("/", name="visualisation")
      */
-    public function index(Request $request)
+    public function index(HistoireRepository $repo,Request $request)
     {
 
         $avis = new Avis();
+        $search = new HistoireSearch();
+
+        $formSearch = $this->createForm(HistoireSearchType::class, $search);
+        $formSearch->handleRequest($request);
+
+
+
+
+
         $formAvis = $this->createForm(AvisType::class, $avis);
         $formAvis->handleRequest($request);
+
+
+
 
         if ($formAvis->isSubmitted() && $formAvis->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -48,14 +65,42 @@ class VisualisationController extends AbstractController
             return $this->redirectToRoute('visualisation');
         }
 
-        $histoires = $this->repository->findAll();
+
+
+
+
+
+        $histoires = $this->repository->findVisibleQuery();
 
         return $this->render('visualisation/index.html.twig', [
-            'controller_name' => 'VisualisationController',
             'histoires' => $histoires,
-            'formAvis' => $formAvis->createView()
+            'formAvis' => $formAvis->createView(),
+            'formSearch' => $formSearch->createView()
         ]);
     }
+
+
+    /**
+     * @Route("/histoire/auteur/{id}", name="histoire_user")
+     */
+    public function show_histoire(User $user){
+        return $this->render('histoire_user/show.html.twig', [
+            'user' => $user,
+            'id' => $user->getId()
+        ]);
+    }
+
+    /**
+     * @Route("/histoire/genre/{id}", name="histoire_genre")
+     */
+    public function show_genre(Genre $genre){
+        return $this->render('histoire_genre/show.html.twig', [
+            'genre' => $genre,
+            'id' => $genre->getId()
+        ]);
+    }
+
+
 
 
 }

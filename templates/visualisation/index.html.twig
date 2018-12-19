@@ -1,8 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
+
+<div class="jumbotron">
+    <div class="container">
+        {{ form_start(formSearch) }}
+        <div class="form-row align-items-end">
+            <div class="col">
+                Formulaire rechercher
+            </div>
+            <div class="col">
+                {{ form_row(formSearch.genres) }}
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <button class="btn btn-primary">
+                        Rechercher
+                    </button>
+                </div>
+            </div>
+
+        </div>
+        {{ form_end(formSearch) }}
+    </div>
+</div>
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
@@ -24,6 +47,8 @@
     {% endif %}
 </div>
 
+
+
     <h1> Les histoires </h1>
 
 
@@ -33,8 +58,8 @@
             <div class="col-sm d-flex">
 
                 <div class="card card-body flex-fill">
-
-
+                    <small> Auteur : <a href="{{ path('histoire_user' , {id : histoire.user.id |default('Default value') } ) }}" >{{ histoire.user }} </a> </small>
+                    <small> Genre :  <a href="{{ path('histoire_genre', {id : histoire.genre.id | default('Default value')}) }}" > {{ histoire.genre }} </a></small>
 
 
                     <h2 class="card-title">
@@ -55,6 +80,7 @@
                     <div class="mt-4 text-center">
                         <button id="review_submit"  class="red_button message_submit_btn trans_300"  > Envoyer</button>
                     </div>
+                    {{ form_end(formAvis) }}
                 </div>
 
             </div>
