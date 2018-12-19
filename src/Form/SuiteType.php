@@ -27,4 +27,5 @@ class SuiteType extends AbstractType {
         $suite = $event->getData();
 
     }
+}
 
