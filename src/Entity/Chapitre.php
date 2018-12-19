@@ -7,6 +7,7 @@
  */
 
 namespace App\Entity;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -136,7 +137,7 @@ class Chapitre {
     /**
      * @return bool
      */
-    public function isPremier(): bool {
+    public function isPremier(): ?bool {
         return $this->premier;
     }
 
@@ -209,7 +210,6 @@ class Chapitre {
     public function setTitreCourt($titreCourt): void {
         $this->titreCourt = $titreCourt;
     }
-
 
 
 }
