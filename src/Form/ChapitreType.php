@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Chapitre;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,7 +16,7 @@ class ChapitreType extends AbstractType {
             ->add('titreCourt')
             ->add('photo')
             ->add('question')
-            ->add('premier')
+            ->add('premier',CheckboxType::class)
             ->add('histoire');
     }
 
