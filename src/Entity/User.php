@@ -112,6 +112,10 @@ class User implements UserInterface
 
         return $this;
     }
+    public function addRoles($roles){
+        $this->roles[]=$roles;
+    }
+
 
     /**
      * @see UserInterface
@@ -205,6 +209,7 @@ class User implements UserInterface
 
         return $this;
     }
+
 
     public function removeAvi(Avis $avi): self
     {

@@ -34,3 +34,4 @@ class SuiteType extends AbstractType {
 
     }
 }
+
