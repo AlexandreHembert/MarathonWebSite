@@ -211,5 +211,10 @@ class Chapitre {
         $this->titreCourt = $titreCourt;
     }
 
+    public function __toString() {
+        // TODO: Implement __toString() method.
+        return $this->getHistoire()->getTitre()." - ".$this->getTitre();
+    }
+
 
 }

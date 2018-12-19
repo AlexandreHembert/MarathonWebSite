@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Chapitre;
 use App\Entity\Histoire;
+use App\Entity\Suite;
 use App\Form\ChapitreType;
 use App\Form\HistoireType;
+use App\Form\SuiteType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -66,15 +68,33 @@ class CreationController extends AbstractController {
     /**
      * @Route("/creation/suite", name="lier_chapitre")
      */
-    public function lierChapitre() {
+    public function lierChapitre(Request $request) {
+        //TODO
+        $suite = new Suite();
+
+        $repository = $this->getDoctrine()->getRepository(Histoire::class);
+        $histoire = $repository->findBy(['user' => $this->getUser()]);
+
+        $repository = $this->getDoctrine()->getRepository(Chapitre::class);
+        $chapitres = $repository->findBy(['histoire' => $histoire]);
+
+
+        $form = $this->createForm(SuiteType::class, $suite, ['histoire' => $histoire, 'chapitres' => $chapitres]);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($suite);
+            $em->flush();
+
+            return $this->redirectToRoute('visualisation');
+        }
+
         return $this->render('creation/lier_chapitre.html.twig', [
-            'controller_name' => 'CreationController',
+            'suite' => $suite,
+            'formCreerSuite' => $form->createView()
         ]);
     }
-
-    public function enregistrerLiaison() {
-        // TODO
-    }
-
 
 }
