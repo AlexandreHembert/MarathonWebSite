@@ -18,7 +18,6 @@ class AvisType extends AbstractType
                 'label' =>false,
                 'required' => false,
                 'choices'=> [
-
                     'Oui' => true,
                     'Non'=>false,
                 ],
