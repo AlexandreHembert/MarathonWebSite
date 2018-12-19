@@ -12,18 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CreationController extends AbstractController {
     /**
-     * @Route("/creation", name="creation")
-     */
-    public function index() {
-        return $this->render('creation/index.html.twig', [
-            'controller_name' => 'CreationController',
-        ]);
-    }
-
-
-    //---------------------------------------------------------
-
-    /**
      * @Route("/creation/histoire", name="creer_histoire")
      */
     public function creerHistoire(Request $request) {

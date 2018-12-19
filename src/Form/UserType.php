@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Form\Type\RolesType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,11 +18,13 @@ class UserType extends AbstractType {
             ->add('email', EmailType::class)
             ->add('nom', TextType::class)
             ->add('prenom', TextType::class)
+            ->add('roles', RolesType::class)
             ->add('plainPassword', RepeatedType::class, array(
-                'type' => PasswordType::class,
-                'first_options' => array('label' => 'Password'),
-                'second_options' => array('label' => 'Repeat Password'),
-            ));
+                    'type' => PasswordType::class,
+                    'first_options' => array('label' => 'Password'),
+                    'second_options' => array('label' => 'Repeat Password'),
+                )
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver) {

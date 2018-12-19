@@ -24,17 +24,27 @@
     {% endif %}
 </div>
 
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    <p>C'est la page générale du site,</p>
-    <br />
-    <p>on doit y voir les histoires.</p>
+    <h1> Les histoires </h1>
 
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'src/Controller/VisualisationController.php'|file_link(0) }}">src/Controller/VisualisationController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'templates/visualisation/index.html.twig'|file_link(0) }}">templates/visualisation/index.html.twig</a></code></li>
-    </ul>
+    <div class="row flex">
+        {% for histoire in histoires %}
+
+            <div class="col-sm d-flex">
+
+                <div class="card card-body flex-fill">
+
+                    <h5 class="card-title">
+                        {{ histoire.titre }}
+                    </h5>
+                    <p class="card-text"> {{ histoire.pitch }} </p>
+                    <p class="card-text"> <img src="https://bathboxoffice.org.uk/wp-content/uploads/2017/10/the-octet-logo-mall-2.jpg"></p>
+                    <div class="text-primary" style="font-weight: bold;font-size:2rem"> Actif : {{ histoire.actif ? 'Oui' : 'Non' }}  </div>
+
+                </div>
+
+            </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

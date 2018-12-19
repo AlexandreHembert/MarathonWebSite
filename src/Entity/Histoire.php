@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,6 +47,16 @@ class Histoire {
      * @ORM\Column(type="boolean")
      */
     private $actif;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Avis", mappedBy="histoires")
+     */
+    private $avis;
+
+    public function __construct()
+    {
+        $this->avis = new ArrayCollection();
+    }
 
     /**
      * @return mixed
@@ -141,6 +153,37 @@ class Histoire {
     public function __toString(): string {
         // TODO: Implement __toString() method.
         return $this->getTitre();
+    }
+
+    /**
+     * @return Collection|Avis[]
+     */
+    public function getAvis(): Collection
+    {
+        return $this->avis;
+    }
+
+    public function addAvi(Avis $avi): self
+    {
+        if (!$this->avis->contains($avi)) {
+            $this->avis[] = $avi;
+            $avi->setHistoires($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvi(Avis $avi): self
+    {
+        if ($this->avis->contains($avi)) {
+            $this->avis->removeElement($avi);
+            // set the owning side to null (unless already changed)
+            if ($avi->getHistoires() === $this) {
+                $avi->setHistoires(null);
+            }
+        }
+
+        return $this;
     }
 
 }

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Histoire;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,7 +16,7 @@ class HistoireType extends AbstractType
             ->add('titre')
             ->add('pitch')
             ->add('photo')
-            ->add('actif')
+            ->add('actif',CheckboxType::class)
             ->add('genre')
             ->add('user')
         ;

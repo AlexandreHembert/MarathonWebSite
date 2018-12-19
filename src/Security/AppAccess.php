@@ -1,14 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: giovanniloope
- * Date: 19/12/2018
- * Time: 11:07
- */
 
 namespace App\Security;
 
+final class AppAccess{
+    const HISTOIRE_EDIT = 'histoire.edit';
+    const HISTOIRE_DELETE = 'histoire.delete';
 
-class AppAccess {
-
+    const CHAPITRE_EDIT = 'chapitre.edit';
+    const CHAPITRE_DELETE = 'chapitre.delete';
 }
