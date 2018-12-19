@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Chapitre;
+use App\Entity\Histoire;
 use App\Form\ChapitreType;
+use App\Form\HistoireType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,16 +26,25 @@ class CreationController extends AbstractController {
     /**
      * @Route("/creation/histoire", name="creer_histoire")
      */
-    public function creerHistoire() {
+    public function creerHistoire(Request $request) {
+        //TODO
+        $histoire = new Histoire();
+        $form = $this->createForm(HistoireType::class, $histoire);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($histoire);
+            $em->flush();
+
+            return $this->redirectToRoute('visualisation');
+        }
+
         return $this->render('creation/creation_histoire.html.twig', [
-            'controller_name' => 'CreationController',
+            'histoire' => $histoire,
+            'formCreerHistoire' => $form->createView(),
         ]);
     }
-
-    public function enregistrerHistoire() {
-        // TODO
-    }
-
 
     //---------------------------------------------------------
 

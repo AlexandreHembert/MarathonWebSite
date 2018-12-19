@@ -175,5 +175,10 @@ class User implements UserInterface
         $this->plainPassword = $plainPassword;
     }
 
+    public function __toString() {
+        // TODO: Implement __toString() method.
+        return $this->getNom();
+    }
+
 
 }
