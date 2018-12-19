@@ -8,6 +8,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Chapitre;
 use App\Entity\Histoire;
 use App\Form\HistoireType;
 use App\Security\AppAccess;
@@ -59,7 +60,7 @@ class HistoireController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="histoire_edit", methods="GET|POST")
+     * @Route("/{id}/edit", name="histoire_show", methods="GET|POST")
      */
     public function edit(Request $request, Histoire $histoire): Response
     {
@@ -83,6 +84,14 @@ class HistoireController extends AbstractController
         $this->denyAccessUnlessGranted(AppAccess::HISTOIRE_DELETE, $histoire);
         if ($this->isCsrfTokenValid('delete'.$histoire->getId(), $request->request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
+
+            $repository = $this->getDoctrine()->getRepository(Chapitre::class);
+            $chapitres = $repository->findBy(['histoire' => $histoire]);
+
+            foreach ($chapitres as $chapitre){
+                $em->remove($chapitre);
+            }
+
             $em->remove($histoire);
             $em->flush();
         }
