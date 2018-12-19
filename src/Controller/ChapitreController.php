@@ -7,6 +7,7 @@
  */
 
 namespace App\Controller;
+
 use App\Entity\Chapitre;
 use App\Entity\Histoire;
 use App\Form\ChapitreType;
@@ -31,25 +32,28 @@ class ChapitreController extends AbstractController
             ->findAll();
         return $this->render('chapitre/index.html.twig', ['chapitres' => $chapitres]);
     }
+
     /**
-     * @Route("/new", name="chapitre_new", methods="GET|POST")
+     * @Route("/new/{id}/{chapitre}", name="chapitre_new", methods="GET|POST",defaults={"chapitre"=null}))
      */
-    public function new(Request $request): Response
+    public function new(Request $request, Histoire $histoire, Chapitre $parent = null): Response
     {
         $chapitre = new Chapitre();
-        $form = $this->createForm(ChapitreType::class, $chapitre);
+        $form = $this->createForm(ChapitreType::class, $chapitre, ["histoire" => $histoire, "chapitre" => $parent]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($chapitre);
             $em->flush();
-            return $this->redirectToRoute('chapitre_index');
+            return $this->redirectToRoute("histoire_show", ['id' => $histoire->getId()] );
         }
         return $this->render('chapitre/new.html.twig', [
             'chapitre' => $chapitre,
             'formCreerChapitre' => $form->createView(),
+
         ]);
     }
+
     /**
      * @Route("/{id}", name="chapitre_show", methods="GET")
      */
