@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouvelle Histoire{% endblock %}
+{% block title %}Nouveau Chapitre{% endblock %}
 
 {% block body %}
     <style>
@@ -18,10 +18,10 @@
     </style>
 
     <div class="example-wrapper">
-        <h3>Création d'une Histoire</h3>
-        {{ form_start(formCreerHistoire) }}
-        {{ form_widget(formCreerHistoire) }}
+        <h3>Création d'une Chapitre</h3>
+        {{ form_start(formCreerChapitre) }}
+        {{ form_widget(formCreerChapitre) }}
         <button class="btn">{{ button_label|default('Save') }}</button>
-        {{ form_end(formCreerHistoire) }}
+        {{ form_end(formCreerChapitre) }}
     </div>
 {% endblock %}
