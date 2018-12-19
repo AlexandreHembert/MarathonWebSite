@@ -7,6 +7,9 @@
             <li><a href="{{ path('creer_chapitre') }}">Ajouter un chapitre</a></li>
             <li><a href="{{ path('lier_chapitre') }}">Lier un chapitre</a></li>
             <li><a href="{{ path('app_logout') }}">Logout</a></li>
+            {% if  is_granted('ROLE_ADMIN') %}
+                <li><a href="{{ path('admin_registration') }}">Pannel admin</a></li>
+            {% endif %}
         {% else %}
             <li><a href="{{ path('app_login') }}">Login</a></li>
             <li><a href="{{ path('user_registration') }}">Register</a></li>

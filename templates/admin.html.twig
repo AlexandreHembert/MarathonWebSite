@@ -5,6 +5,17 @@
 {% block body %}
 
 
+    <h3> Utilisateurs </h3>
+    {% for user in users %}
+        <ul>
+            <li>Username : {{ user.username }}</li>
+            <li>Nom : {{ user.nom }} </li>
+            <li>Prenom : {{ user.prenom }} </li>
+            <li>{{ user.roles ? user.roles|join(', ') : '' }}</li>
+        </ul>
 
+
+    {% endfor %}
+    <a href="{{ path('admin_registration') }}">Create new</a>
 
 {% endblock %}
