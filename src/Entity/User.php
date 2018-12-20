@@ -13,6 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface
 {
+
+    const DIR_UPLOAD = 'user';
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -35,6 +37,19 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+
+    /**
+     *
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg", "image/gif"})
+     */
+    private $photoFile;
+
+    /**
+     * @ORM\Column(type="string", length=256)
+     */
+    private $photo;
+
 
     /**
      * @ORM\Column(type="string", length=45)
@@ -191,6 +206,41 @@ class User implements UserInterface
         // TODO: Implement __toString() method.
         return $this->getNom();
     }
+
+
+    public function getPhoto() {
+        return $this->photo;
+    }
+
+    /**
+     * @param mixed $photo
+     */
+    public function setPhoto($photo): void {
+        $this->photo = $photo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhotoFile()
+    {
+        return $this->photoFile;
+    }
+
+    /**
+     * @param mixed $photoFile
+     */
+    public function setPhotoFile($photoFile): self
+    {
+        $this->photoFile = $photoFile;
+
+        return $this;
+    }
+
+    public function getPhotoWebPath(){
+        return self::DIR_UPLOAD . '/' . $this->getPhoto();
+    }
+
 
     /**
      * @return Collection|Avis[]
