@@ -1,13 +1,94 @@
 {# templates/registration/register.html.twig #}
 
-{{ form_start(form) }}
-    {{ form_row(form.nom) }}
-    {{ form_row(form.prenom) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.plainPassword.first) }}
-    {{ form_row(form.plainPassword.second) }}
-
-<button type="submit">Register!</button>
+{% extends 'base.html.twig' %}
 
 
-{{ form_end(form) }}
+
+{% block body %}
+
+
+
+
+<body>
+<header>
+    <img src="/images/logo.svg" alt="Logo Base 11/19" class="active" />
+</header>
+<div class="register">
+    <h1 class="register__title">Bienvenue, veuillez vous inscrire.</h1>
+    <form action="" method="POST">
+        <div class="input-container">
+            {{ form_start(form) }}
+            <div>
+                {{ form_widget(form.nom, { 'attr': { 'class' : "register__input input__name",'placeholder': "Nom"} }) }}
+            </div>
+
+            <div>
+                {{ form_widget(form.prenom, { 'attr': { 'class' : "register__input input__prenom",'placeholder': "Prénom"} }) }}
+            </div>
+
+            <div>
+                {{ form_widget(form.email, { 'attr': { 'class' : "register__input input__mail",'placeholder': "Adresse Mail "} }) }}
+            </div>
+
+            <div>
+                {{ form_widget(form.plainPassword) }}
+            </div>
+
+
+
+            <button class="register__button" type="submit">s'inscrire</button>
+            {{ form_end(form) }}
+        </div>
+        <div class="image-container">
+            <svg width="403px" height="395px" viewBox="0 0 403 395" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/1999/xlink">
+                <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+                <title>chevalet</title>
+                <desc>Created with Sketch.</desc>
+                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="Desktop-HD-Copy-2" transform="translate(-856.000000, -386.000000)">
+                        <g id="chevalet" transform="translate(856.000000, 386.000000)">
+                            <ellipse id="Oval" fill="#171717" cx="201.5" cy="369.5" rx="201.5" ry="25.5"></ellipse>
+                            <g opacity="0.648670015" transform="translate(76.000000, 0.000000)" fill="#FFFFFF">
+                                <g id="chavalet">
+                                    <path d="M244.044693,369 L182.98324,369 C179.126503,369 176,365.884666 176,362.041707 L176,47.9582927 C176,44.1153337 179.126503,41 182.98324,41 L244.01676,41 C247.873497,41 251,44.1153337 251,47.9582927 L251,362.055624 C250.99235,365.882308 247.885074,368.984701 244.044693,369 Z M182.98324,47.9861258 L182.98324,362.055624 L244.002793,362.055624 L244.002793,47.9861258 L182.98324,47.9861258 Z"
+                                          id="Shape" fill-rule="nonzero"></path>
+                                    <path d="M266.058005,113 L161.955907,113 C158.114265,113 155,109.895841 155,106.066667 L155,93.9333333 C155,90.1041591 158.114265,87 161.955907,87 L266.044093,87 C269.885735,87 273,90.1041591 273,93.9333333 L273,106.066667 C273.000008,109.890432 269.894212,112.992352 266.058005,113 Z M161.969818,93.9749333 L161.969818,106.066667 L266.044093,106.066667 L266.044093,93.9749333 L161.969818,93.9749333 Z"
+                                          id="Shape" fill-rule="nonzero"></path>
+                                    <path d="M27.51306,364 L0,364 L0.334335919,360.214712 C0.418506626,359.209943 0.722885814,358.23597 1.22589837,357.361829 L156.455279,91 L162.473326,94.5069583 L9.47285104,357.04175 L23.5288903,357.04175 L169.968023,103.594433 L176,107.073559 L27.51306,364 Z"
+                                          id="Path"></path>
+                                    <path d="M273,47 L155,47 L155,28.260985 C155.022991,12.6623692 167.712503,0.0228998888 183.372877,0 L247.090094,0 C261.393382,0.0152781692 272.984661,11.5608459 273,25.8077263 L273,47 Z M161.957547,40.0698909 L266.042453,40.0698909 L266.042453,25.7938661 C266.034779,15.3712139 257.554012,6.92389294 247.090094,6.91624889 L183.386792,6.91624889 C171.554928,6.92389418 161.965223,16.475781 161.957547,28.260985 L161.957547,40.0698909 Z"
+                                          id="Shape" fill-rule="nonzero"></path>
+                                    <path d="M244.044693,368 L182.98324,368 C179.126503,368 176,364.884045 176,361.040321 L176,190.959679 C176,187.115955 179.126503,184 182.98324,184 L244.01676,184 C247.873497,184 251,187.115955 251,190.959679 L251,361.05424 C250.99235,364.881687 247.885074,367.984698 244.044693,368 Z M182.98324,190.959679 L182.98324,361.05424 L244.002793,361.05424 L244.002793,190.959679 L182.98324,190.959679 Z"
+                                          id="Shape" fill-rule="nonzero"></path>
+                                    <path d="M213.5,44 L213.5,53" id="Path"></path>
+                                    <rect id="Rectangle" x="210" y="44" width="7" height="9"></rect>
+                                    <path d="M213.5,144 L213.5,188" id="Path"></path>
+                                    <rect id="Rectangle" x="209" y="144" width="7" height="44"></rect>
+                                    <rect id="Rectangle" x="106" y="218" width="78" height="7"></rect>
+                                    <rect id="Rectangle" x="73" y="272" width="108" height="7"></rect>
+                                    <rect id="Rectangle" x="40" y="328" width="141" height="7"></rect>
+                                    <polygon id="Rectangle" points="181 247.950793 242.218335 189 247 194.049207 185.781665 253"></polygon>
+                                    <polygon id="Rectangle" points="181 190.814074 186.011804 186 246 249.185926 240.988196 254"></polygon>
+                                    <polygon id="Rectangle" points="181 303.950793 242.218335 245 247 250.049207 185.781665 309"></polygon>
+                                    <polygon id="Rectangle" points="181 246.814074 186.011804 242 246 305.185926 240.988196 310"></polygon>
+                                    <polygon id="Rectangle" points="180 361.950793 241.218335 303 246 308.049207 184.781665 367"></polygon>
+                                    <polygon id="Rectangle" points="179 304.814074 184.011804 300 244 363.185926 238.988196 368"></polygon>
+                                </g>
+                                <g id="roue" >
+                                    <polygon id="Rectangle" points="13 71.9507928 74.2183346 13 79 18.0492072 17.7816654 77"></polygon>
+                                    <path d="M44.4419724,90.9887053 C19.3213259,90.4043959 -0.569882862,69.5671535 0.0124674931,44.4461157 C0.594817849,19.3250779 21.4302284,-0.568023063 46.5509654,0.0123843257 C71.6717023,0.592791714 91.5661473,21.4269442 90.9876989,46.5480722 C90.3790754,71.6614409 69.556264,91.5425125 44.4419724,90.9887053 Z M46.3825245,6.88318999 C25.0606477,6.39481646 7.37962403,23.2832896 6.89003456,44.605432 C6.4004451,65.9275745 23.2876717,83.6098101 44.6094923,84.100629 C65.931313,84.5914479 83.6142734,67.7050027 84.1063082,46.3829165 C84.5754481,25.0662814 67.6979039,7.39418402 46.3825245,6.88318999 Z"
+                                          id="Shape" fill-rule="nonzero"></path>
+                                    <polygon id="Rectangle" points="13 14.8140736 18.0118037 10 78 73.1859264 72.9881963 78"></polygon>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </div>
+    </form>
+</div>
+</body>
+
+{% endblock %}

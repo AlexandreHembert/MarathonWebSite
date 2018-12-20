@@ -4,8 +4,48 @@
 
 {% block body %}
 
-<h1> Les histoires de {{ user.nom }}</h1>
 
+    <body>
+    <header>
+        <img class="active"src="/images/logo.svg" alt="Logo Base 11/19">
+    </header>
+    <div class="histoires">
+        <h1 class="histoires__title">Découvrez nos histoires</h1>
+        <p class="histoires__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam consectetur orci et massa feugiat, et tempus turpis pellentesque. Phasellus non ipsum vel lectus dapibus imperdiet. Quisque augue urna.</p>
+        <input class="histoires__search"type='search' placeholder="recherche">
+
+        <div class="histoires__prefilter">
+            <h2>Liste des histoires de {{ user.nom }}</h2><span></span>
+            <button>Filtrer</button>
+        </div>
+
+
+
+        <div class="histoires__cards">
+            {% for histoire in histoires %}
+                <div class="histoires__card">
+                    <img class="histoires__card-img" src="/histoire/histoires.png">
+                    <div class="histoires__card-content">
+                        <p class="histoires__card-p">Histoire</p>
+                        <a src="" class="histoires__card-title"> {{ histoire.titre }}</a>
+                        <div class="histoires__card-infos">
+                            <span class="histoires__card-author"><a href="{{ path('histoire_user' , {id : histoire.user.id |default('Default value') } ) }}" >{{ histoire.user }}</a></span>
+                            <span class="histoires__card-genre"><a href="{{ path('histoire_genre', {id : histoire.genre.id | default('Default value') } ) }}" > {{ histoire.genre }} </a></span>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+
+
+
+    </div>
+
+
+    </body>
+
+    </html>
 
 
 

@@ -32,8 +32,10 @@ class UserType extends AbstractType {
 
             ->add('plainPassword', RepeatedType::class, array(
                     'type' => PasswordType::class,
-                    'first_options' => array('label' => 'Password'),
-                    'second_options' => array('label' => 'Repeat Password'),
+                    'options' => array('attr' => array('class' => 'register__input input__passwrd')),
+                    'required' => true,
+                    'first_options' => array('label' => false,'attr' => array('placeholder' => 'Mot de passe' , 'class' => 'register__input input__passwrd')),
+                    'second_options' => array('label' => false,'attr'=>array('placeholder' => ' Confirmer le mot de passe', 'class' => 'register__input input__confirm-passwrd')),
                 )
             );
 
