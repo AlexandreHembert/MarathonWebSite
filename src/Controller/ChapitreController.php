@@ -40,7 +40,6 @@ class ChapitreController extends AbstractController
     /**
      * @Route("/new/{id}/{parent}", name="chapitre_new", methods="GET|POST", defaults={"parent"=null}))
      */
-
     public function new(Request $request, Histoire $histoire, FileChapitreTypeUpload $fileChapitreTypeUpload, Chapitre $parent = null): Response
     {
         $chapitre = new Chapitre();
@@ -69,13 +68,12 @@ class ChapitreController extends AbstractController
      */
     public function show(Chapitre $chapitre): Response
     {
-        return $this->render('histoire/show.html.twig', ['chapitre' => $chapitre]);
+        return $this->render('chapitre/show.html.twig', ['chapitre' => $chapitre]);
+
     }
-
     /**
-     * @Route("/{id}/edit", name="chapitre_show", methods="GET|POST")
+     * @Route("/{id}/edit", name="chapitre_edit", methods="GET|POST")
      */
-
     public function edit(Request $request, Chapitre $chapitre, FileChapitreTypeUpload $fileChapitreTypeUpload): Response
     {
 
