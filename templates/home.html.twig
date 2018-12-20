@@ -10,13 +10,24 @@
         <div class="header__right">
             <a href="{{ path('visualisation') }}">Les histoires</a>
 
-    {% if app.user %}
+        {% if app.user %}
             <div class="header__profile">
                 <img src="/images/man-user.png" alt="Photo de profile">
                 <a href="{{ path('dashboard', {id : app.user.id }) }}">
                     {{ app.user.nom }}
                 </a>
             </div>
+
+            {% else  %}
+
+                <div class="header__profile">
+                    <img src="/images/man-user.png" alt="Photo de profile">
+                    <a href="{{ path('app_login') }}">
+                        Connexion
+                    </a>
+                </div>
+
+
         {% endif %}
         </div>
 
