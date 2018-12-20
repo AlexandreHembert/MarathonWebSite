@@ -113,7 +113,7 @@
                if(words != "") {
                    $.ajax({
                         type: 'GET',
-                        url: {{ path('') }},
+
                         data: 'histoire=' + encodeURIComponent(words),
                        success: function(data) {
                             if(data != "") {

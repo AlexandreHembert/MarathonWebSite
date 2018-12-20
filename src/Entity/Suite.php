@@ -12,7 +12,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Chapitre
+
  * @package App\Entity
  * @ORM\Entity(repositoryClass="App\Repository\SuiteRepository")
  */
