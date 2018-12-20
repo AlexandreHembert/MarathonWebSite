@@ -12,12 +12,14 @@ use App\Entity\Chapitre;
 use App\Entity\Histoire;
 use App\Entity\Suite;
 use App\Form\ChapitreType;
+use App\Form\SuiteType;
 use App\Security\AppAccess;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Upload\FileChapitreTypeUpload;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 /**
  * @Route("/chapitre")
@@ -39,7 +41,7 @@ class ChapitreController extends AbstractController
      * @Route("/new/{id}/{parent}", name="chapitre_new", methods="GET|POST", defaults={"parent"=null}))
      */
 
-    public function new(Request $request, Histoire $histoire, Chapitre $parent = null, FileChapitreTypeUpload $fileChapitreTypeUpload): Response
+    public function new(Request $request, Histoire $histoire, FileChapitreTypeUpload $fileChapitreTypeUpload, Chapitre $parent = null): Response
     {
         $chapitre = new Chapitre();
         $form = $this->createForm(ChapitreType::class, $chapitre, ["histoire" => $histoire, "chapitre" => $parent]);
@@ -47,17 +49,14 @@ class ChapitreController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $fileChapitreTypeUpload->upload($chapitre);
             $em = $this->getDoctrine()->getManager();
-            if ($parent !== null) {
-                $suite = new Suite();
-                $suite->setChapitreSource($parent);
-                $suite->setChapitreDestination($chapitre);
-                $suite->setReponse($parent->getId() . $chapitre->getId());
-                $em->persist($suite);
-            }
-
             $em->persist($chapitre);
             $em->flush();
-            return $this->redirectToRoute("histoire_show", ['id' => $histoire->getId()]);
+            if($parent !== null){
+                return $this->redirectToRoute("suite_new",
+                    ['idSource' => $parent, 'idDest' => $chapitre]);
+            }else{
+                return $this->redirectToRoute("histoire_show", ['id' => $histoire->getId()]);
+            }
         }
         return $this->render('chapitre/new.html.twig', [
             'chapitre' => $chapitre,
