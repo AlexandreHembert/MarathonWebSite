@@ -10,6 +10,7 @@ namespace App\Controller;
 
 use App\Entity\Chapitre;
 use App\Entity\Histoire;
+use App\Entity\Suite;
 use App\Form\ChapitreType;
 use App\Security\AppAccess;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,6 +41,14 @@ class ChapitreController extends AbstractController {
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            if($parent !== null){
+                $suite = new Suite();
+                $suite->setChapitreSource($parent);
+                $suite->setChapitreDestination($chapitre);
+                $suite->setReponse($parent->getId().$chapitre->getId());
+                $em->persist($suite);
+            }
+
             $em->persist($chapitre);
             $em->flush();
             return $this->redirectToRoute("histoire_show", ['id' => $histoire->getId()]);

@@ -57,7 +57,10 @@ class HistoireController extends AbstractController
     {
         $parent = $em = $this->getDoctrine()->getManager()->getRepository(Chapitre::class)
             ->findOneBy(['histoire' => $histoire,'premier' => true]);
-        return $this->render('histoire/show.html.twig', ['histoire' => $histoire,'parent'=> $parent]);
+        $chapitres = $em = $this->getDoctrine()->getManager()->getRepository(Chapitre::class)
+            ->findBy(['histoire' => $histoire,'premier' => false]);
+
+        return $this->render('histoire/show.html.twig', ['histoire' => $histoire,'parent'=> $parent, 'chapitres' => $chapitres]);
     }
     /**
      * @Route("/{id}/edit", name="histoire_edit", methods="GET|POST")
