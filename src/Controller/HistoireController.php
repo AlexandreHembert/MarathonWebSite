@@ -64,8 +64,11 @@ class HistoireController extends AbstractController
     {
         $parent = $em = $this->getDoctrine()->getManager()->getRepository(Chapitre::class)
             ->findOneBy(['histoire' => $histoire, 'premier' => true]);
+        $chapitres = $em = $this->getDoctrine()->getManager()->getRepository(Chapitre::class)
+            ->findBy(['histoire' => $histoire, 'premier' => false]);
 
-        return $this->render('histoire/show.html.twig', ['histoire' => $histoire, 'parent' => $parent]);
+        return $this->render('histoire/show.html.twig', ['histoire' => $histoire, 'parent' => $parent, 'chapitres' => $chapitres]);
+
     }
 
     /**
@@ -95,14 +98,13 @@ class HistoireController extends AbstractController
         $this->denyAccessUnlessGranted(AppAccess::HISTOIRE_DELETE, $histoire);
         if ($this->isCsrfTokenValid('delete' . $histoire->getId(), $request->request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
-
             $repository = $this->getDoctrine()->getRepository(Chapitre::class);
             $chapitres = $repository->findBy(['histoire' => $histoire]);
 
             foreach ($chapitres as $chapitre) {
+
                 $em->remove($chapitre);
             }
-
             $em->remove($histoire);
             $em->flush();
         }
