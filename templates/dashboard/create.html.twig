@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<body>
+
+<style>
+    body{
+        background-color: #1D1D1D;
+    }
+</style>
+
+<div class="dashboard">
+    <div class="left-side">
+        <div class="left-side_fixed">
+            <div class="dashboard-name">
+                <img src="/images/avatar.png" alt="avatar Antoine Parent" class="avatar">
+                <h3>Antoine Parent</h3>
+            </div>
+            <div class="link">
+                <ul>
+                    <li>
+                        <a href="">Mes histoires</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('histoire_new') }}">Créer une histoire</a>
+                    </li>
+                    <li>
+                        <a href="">Mes infos</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="deconnexion">
+                <div>
+                    <img src="/images/logout.svg" alt="deconnexion">
+                    <a href="{{ path('app_logout') }}">Deconnexion</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dashboard-content">
+
+        <div class="dashboard-content1">
+            <h3>Créer une histoire</h3>
+
+            <div class="input-container">
+                <input placeholder="Titre de l'histoire" type="text" name="titre_histoire" class="login__input input__mail">
+
+                <span class="custom-dropdown">
+                                    <select>
+                                        <option>Genre</option>
+                                        <option>The Great Gatsby</option>
+                                        <option>V for Vendetta</option>
+                                        <option>The Wolf of Wallstreet</option>
+                                        <option>Quantum of Solace</option>
+                                    </select>
+                            </span>
+
+                <input placeholder="Description de l'histoire" type="text" name="passwrd" class="login__input input__passwrd">
+                <input placeholder="Ajouter une image à la une" type="file" name="passwrd" class="login__input input__passwrd">
+            </div>
+        </div>
+
+        <div class="dashboard-content1">
+            <h3>Quelle est votre histoire ?</h3>
+
+            <div class="input-container">
+                <input placeholder="Votre histoire" type="text" name="histoire" class="login__input input__mail">
+                <textarea id="story" name="story" rows="5" cols="33">Il était une fois...</textarea>
+                <div class="add">
+                    <img src="images/add.svg" alt="">
+                    <a href="">Ajouter vos chapitres</a>
+                </div>
+                <input type="submit" class="login__button" value="Valider"/>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/loader.js">
+    </script>
+    <script src="js/dropdown.js"></script>
+</body>
+
+{% endblock  %}

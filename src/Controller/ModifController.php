@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ModifController extends AbstractController{
     /**
-     * @Route("/modif/histoire/{id}", name="histoire_edit", methods="GET|POST")
+     * @Route("/modif/histoire/{id}", name="histoire_edit1 nhvghjvc,n", methods="GET|POST")
      */
     public function editHistoire(Request $request, Histoire $histoire): Response
     {

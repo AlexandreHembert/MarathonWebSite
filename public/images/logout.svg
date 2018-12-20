@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>icons8-logout_rounded_up</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="left-board" transform="translate(-44.000000, -961.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="icons8-logout_rounded_up">
+                <g transform="translate(44.000000, 960.000000)">
+                    <path d="M12,0.96875 L11.28125,1.65625 L7.28125,5.65625 L8.71875,7.09375 L11,4.8125 L11,17 L13,17 L13,4.8125 L15.28125,7.09375 L16.71875,5.65625 L12.71875,1.65625 L12,0.96875 Z M5.09375,3.1875 C2.011719,5.359375 0,8.949219 0,13 C0,19.617188 5.382813,25 12,25 C18.617188,25 24,19.617188 24,13 C24,8.949219 21.988281,5.359375 18.90625,3.1875 L17.75,4.8125 C20.320313,6.621094 22,9.609375 22,13 C22,18.535156 17.535156,23 12,23 C6.464844,23 2,18.535156 2,13 C2,9.609375 3.679688,6.625 6.25,4.8125 L5.09375,3.1875 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

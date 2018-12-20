@@ -1,10 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<body>
-<header>
-    <a href="/"><img src="images/logoBlack.svg" alt="Logo Base 11/19" class="active" /></a>
-</header>
+
+    <header>
+        <a href="{{ path('home') }}"><img src="/images/logoBlack.svg" alt="Logo Base 11/19" class="active" /></a>
+
+
+
+        <div class="header__right">
+            <a href="{{ path('visualisation') }}">Les histoires</a>
+            <div class="header__profile">
+                <img src="/images/man-user.png" alt="Photo de profile">
+                <a href="{{ path('dashboard', {id : app.user.id }) }}">
+                    {{ app.user.nom }}
+                </a>
+            </div>
+        </div>
+
+
+    </header>
 <div class="homepage" style="background-image:url(/images/mountain.png);">
     <iframe class="homepage__fixed-video" src="https://www.youtube.com/embed/msXPH5Bp6yo?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>

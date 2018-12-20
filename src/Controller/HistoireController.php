@@ -32,7 +32,7 @@ class HistoireController extends AbstractController
         $histoires = $this->getDoctrine()
             ->getRepository(Histoire::class)
             ->findAll();
-        return $this->render('histoire/index.html.twig', [
+        return $this->render('visualisation', [
             'histoires' => $histoires,
         ]);
     }
@@ -50,7 +50,7 @@ class HistoireController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($histoire);
             $em->flush();
-            return $this->redirectToRoute('histoire_index');
+            return $this->redirectToRoute('visualisation');
         }
         return $this->render('histoire/new.html.twig', [
             'histoire' => $histoire,
@@ -117,6 +117,6 @@ class HistoireController extends AbstractController
             $em->remove($histoire);
             $em->flush();
         }
-        return $this->redirectToRoute('histoire_index');
+        return $this->redirectToRoute('visualisation');
     }
 }

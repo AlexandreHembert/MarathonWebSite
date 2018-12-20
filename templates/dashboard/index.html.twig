@@ -1,9 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Dashboard de {{ app.user.nom }}{% endblock %}
+{% block title %}DASHBOARD{% endblock %}
 
 {% block body %}
-
 
 <body>
 
@@ -26,29 +25,30 @@
                         <a href="">Mes histoires</a>
                     </li>
                     <li>
-                        <a href="">Créer une histoire</a>
+                        <a href="{{ path('histoire_new') }}">Créer une histoire</a>
                     </li>
-                    <li>
-                        <a href="">Mes infos</a>
-                    </li>
+
                 </ul>
             </div>
             <div class="deconnexion">
                 <div>
                     <img src="/images/logout.svg" alt="deconnexion">
-                    <a href="">Deconnexion</a>
+                    <a href="{{ path('app_logout') }}">Deconnexion</a>
                 </div>
             </div>
         </div>
         </div>
         <div class="dashboard-content">
-            <h3>Mes histoires</h3>
+            <h3>Mes histoires </h3>
 
             <div class="dashboard-content_histoires">
             <div class="histoires__cards">
 
+                {% for histoire in histoires %}
                 <div class="histoires__card">
-                        <img class="histoires__card-img" src="/images/histoires.png">
+
+                    <img class="histoires__card-img" src="/histoire/histoires.png">
+
                         <div class="histoires__card-menu">
 
                             <div class="toggle">
@@ -58,11 +58,11 @@
                                   <ul>
                                     <li class="menu-opt">
                                         <img src="/images/edit.svg" alt="">
-                                        <a href="">Modifier</a>
+                                        <a href="{{ path('histoire_edit', {id: histoire.id}) }}">Modifier</a>
                                     </li>
                                     <li class="menu-opt">
                                         <img src="/images/close.svg" alt="">
-                                        <a href="">Supprimer</a>
+                                        <a href="{{ path('histoire_delete', {id: histoire.id}) }}">Supprimer</a>
                                     </li>
                                   </ul>
                                 </div>
@@ -71,143 +71,20 @@
                         </div>
                         <div class="histoires__card-content">
                             <p class="histoires__card-p">Histoire</p>
-                            <a src="" class="histoires__card-title">L'histoire d'un ancien mineur de lens</a>
+                            <a src="" class="histoires__card-title">{{ histoire.pitch }}</a>
                             <div class="histoires__card-infos">
-                                    <span class="histoires__card-author">John Doe</span>
-                                 <span class="histoires__card-genre">genre</span>
+                                    <span class="histoires__card-author">{{ histoire.user }}</span>
+                                 <span class="histoires__card-genre">{{ histoire.genre }}</span>
                             </div>
                         </div>
                 </div>
-                <div class="histoires__card">
-                        <img class="histoires__card-img" src="/histoire/histoires.png">
-                        <div class="histoires__card-menu">
-
-                                <div class="toggle">
-                                    <a href="#menu" id="toggle"><span></span></a>
-
-                                    <div id="menu">
-                                      <ul>
-                                        <li class="menu-opt">
-                                            <img src="/images/edit.svg" alt="">
-                                            <a href="">Modifier</a>
-                                        </li>
-                                        <li class="menu-opt">
-                                            <img src="/images/close.svg" alt="">
-                                            <a href="">Supprimer</a>
-                                        </li>
-                                      </ul>
-                                    </div>
-
-                                </div>
-                            </div>
-                        <div class="histoires__card-content">
-                            <p class="histoires__card-p">Histoire</p>
-                            <a src="" class="histoires__card-title">L'histoire d'un ancien mineur de lens</a>
-                            <div class="histoires__card-infos">
-                                    <span class="histoires__card-author">John Doe</span>
-                                 <span class="histoires__card-genre">genre</span>
-                            </div>
-                        </div>
-                </div>
-                <div class="histoires__card">
-                        <img class="histoires__card-img" src="/images/histoires.png">
-                        <div class="histoires__card-menu">
-
-                                <div class="toggle">
-                                    <a href="#menu" id="toggle"><span></span></a>
-
-                                    <div id="menu">
-                                      <ul>
-                                        <li class="menu-opt">
-                                            <img src="/images/edit.svg" alt="">
-                                            <a href="">Modifier</a>
-                                        </li>
-                                        <li class="menu-opt">
-                                            <img src="/images/close.svg" alt="">
-                                            <a href="">Supprimer</a>
-                                        </li>
-                                      </ul>
-                                    </div>
-
-                                </div>
-                            </div>
-                        <div class="histoires__card-content">
-                            <p class="histoires__card-p">Histoire</p>
-                            <a src="" class="histoires__card-title">L'histoire d'un ancien mineur de lens</a>
-                            <div class="histoires__card-infos">
-                                    <span class="histoires__card-author">John Doe</span>
-                                 <span class="histoires__card-genre">genre</span>
-                            </div>
-                        </div>
-                </div>
-                <div class="histoires__card">
-                        <img class="histoires__card-img" src="/images/histoires.png">
-                        <div class="histoires__card-menu">
-
-                                <div class="toggle">
-                                    <a href="#menu" id="toggle"><span></span></a>
-
-                                    <div id="menu">
-                                      <ul>
-                                        <li class="menu-opt">
-                                            <img src="/images/edit.svg" alt="">
-                                            <a href="">Modifier</a>
-                                        </li>
-                                        <li class="menu-opt">
-                                            <img src="/images/close.svg" alt="">
-                                            <a href="">Supprimer</a>
-                                        </li>
-                                      </ul>
-                                    </div>
-
-                                </div>
-                            </div>
-                        <div class="histoires__card-content">
-                            <p class="histoires__card-p">Histoire</p>
-                            <a src="" class="histoires__card-title">L'histoire d'un ancien mineur de lens</a>
-                            <div class="histoires__card-infos">
-                                    <span class="histoires__card-author">John Doe</span>
-                                 <span class="histoires__card-genre">genre</span>
-                            </div>
-                        </div>
-                </div>
-                <div class="histoires__card">
-                        <img class="histoires__card-img" src="/images/histoires.png">
-                        <div class="histoires__card-menu">
-
-                                <div class="toggle">
-                                    <a href="#menu" id="toggle"><span></span></a>
-
-                                    <div id="menu">
-                                      <ul>
-                                        <li class="menu-opt">
-                                            <img src="/images/edit.svg" alt="">
-                                            <a href="">Modifier</a>
-                                        </li>
-                                        <li class="menu-opt">
-                                            <img src="/images/close.svg" alt="">
-                                            <a href="">Supprimer</a>
-                                        </li>
-                                      </ul>
-                                    </div>
-
-                                </div>
-                            </div>
-                        <div class="histoires__card-content">
-                            <p class="histoires__card-p">Histoire</p>
-                            <a src="" class="histoires__card-title">L'histoire d'un ancien mineur de lens</a>
-                            <div class="histoires__card-infos">
-                                    <span class="histoires__card-author">John Doe</span>
-                                 <span class="histoires__card-genre">genre</span>
-                            </div>
-                        </div>
-                </div>
+                {% endfor %}
             </div>
 
             </div>
             </div>
     </div>
 
-</body>
 
+</html>
 {% endblock %}
