@@ -1,67 +1,53 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<body>
-<header>
-    <img class="active" src="/images/logoBlack.svg" alt="Logo Base 11/19">
-</header>
+    <body>
+    <header>
+        <img class="active" src="/images/logoBlack.svg" alt="Logo Base 11/19">
+    </header>
 
-<div class="chapitre">
-    <div class="chapitre__grid">
-        <div class="chapitre__illustration"></div>
-        <div class="chapitre__content">
+    <div class="chapitre">
+        <div class="chapitre__grid">
+            <div class="chapitre__illustration"></div>
+            <div class="chapitre__content">
 
-            <p class="chapitre__number">Chapitre {{ chapitre.id }} </p>
-            <h1 class="chapitre__title">{{ chapitre.titre }}</h1>
-            <h2 class="chapitre__title"> {{ chapitre.titreCourt }}</h2>
-            <p class="chapitre__number">Chapitre {{ chapitre.id }} </p>
-            <h1 class="chapitre__title">{{ chapitre.titre }}</h1>
+                <p class="chapitre__number">Chapitre {{ chapitre.id }} </p>
+                <h1 class="chapitre__title">{{ chapitre.titre }}</h1>
 
+            </div>
         </div>
-    </div>
-
-</div>
-
-<div class="chapitre chapitre__bg">
-    <div class="chapitre__p">
-        <p>{{ chapitre.texte }}</p>
-    </div>
-    <h2 class="chapitre__question">{{ chapitre.question }}</h2>
-    <div class="chapitre__btns">
-        <a href="#" class="chapitre_btn">RÉPONSE 1</a>
-        <a href="#" class="chapitre_btn">RÉPONSE 2</a>
-    </div>
-
 
     </div>
 
-    {% if chapitre.question is not null %}
-        <h2 class="chapitre__question">{{ chapitre.question }}</h2>
-        <div class="chapitre__btns">
-        {% for fils in chapitre.getOrigines() %}
-                <a href="{{ path('chapitre_show', {'id' : fils.getChapitreDestination.id}) }}" class="chapitre_btn">{{ fils.getReponse() }}</a>
-        {% endfor %}
+    <div class="chapitre chapitre__bg">
+        <div class="chapitre__p">
+            <p>{{ chapitre.texte }}</p>
         </div>
-    {% else %}
-        <div class="chapitre__title" style="color: #fff;">FIN</div>
-    {% endif %}
 
-
-</div>
-<footer class="footer__flex">
-    <div class="footer__links">
-        <a href=""> Accueil</a>
-        <a href=""> Histoires</a>
-        <a href=""> Modifier informations</a>
-        <a href=""> A propos</a>
+        {% if chapitre.question is not null %}
+            <h2 class="chapitre__question">{{ chapitre.question }}</h2>
+            <div class="chapitre__btns">
+                {% for fils in chapitre.getOrigines() %}
+                    <a href="{{ path('chapitre_show', {'id' : fils.getChapitreDestination.id}) }}" class="chapitre_btn">{{ fils.getReponse() }}</a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="chapitre__title" style="color: #fff;">FIN</div>
+        {% endif %}
     </div>
-    <p>Airdrop 2019</p>
-</footer>
 
 
-</body>
-{% endblock %}
+    </div>
+    <footer class="footer__flex">
+        <div class="footer__links">
+            <a href=""> Accueil</a>
+            <a href=""> Histoires</a>
+            <a href=""> Modifier informations</a>
+            <a href=""> A propos</a>
+        </div>
+        <p>Airdrop 2019</p>
+    </footer>
 
 
-
+    </body>
 {% endblock %}

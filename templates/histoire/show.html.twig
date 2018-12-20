@@ -1,58 +1,43 @@
+
 {% extends 'base.html.twig' %}
-
-
 {% block title %} Histoire {{ histoire.titre }} {% endblock %}
-
-
 {% block body %}
-
-<body>
-<header>
-    <img class="active" src="/images/logoBlack.svg" alt="Logo Base 11/19">
-</header>
-<div class="histoire">
-    <div class="histoire__grid">
-        <div class="histoire__illustration"></div>
-        <div class="histoire__content">
-            <p class="histoire__genre">Aventure</p>
-            <h1 class="histoire__title"><a style="color: #B0413E" href="{{ path("histoire_show", {'id': histoire.id}) }}">{{ histoire.titre }}</a></h1>
-            <p class="histoire__author">Cette histoire écrite par <span>
+    <body>
+    <header>
+        <img class="active" src="/images/logoBlack.svg" alt="Logo Base 11/19">
+    </header>
+    <div class="histoire">
+        <div class="histoire__grid">
+            <div class="histoire__illustration"></div>
+            <div class="histoire__content">
+                <p class="histoire__genre">Aventure</p>
+                <h1 class="histoire__title"><a style="color: #B0413E" href="{{ path("histoire_show", {'id': histoire.id}) }}">{{ histoire.titre }}</a></h1>
+                <p class="histoire__author">Cette histoire écrite par <span>
                     <strong>{{ histoire.user }}</strong></span> a été appréciée par <strong>{{ avisG|length }}</strong> personnes <br>
-                                                                et non appréciée par <strong>{{ avisB|length }}</strong> personnes</p>
-            <p class="histoire__txt">{{ histoire.pitch }}</p>
-            <div class="histoire__btns">
-                <a href="{{ path("avis_positif_ajout", {'id': histoire.id }) }}" class="histoire_btn">J'AIME</a>
-                <a href="{{ path("avis_negatif_ajout", {'id': histoire.id }) }}" class="histoire_btn">J'AIME PAS</a>
+                    et non appréciée par <strong>{{ avisB|length }}</strong> personnes</p>
+                <p class="histoire__txt">{{ histoire.pitch }}</p>
+                <div class="histoire__btns">
+                    <a href="{{ path("avis_positif_ajout", {'id': histoire.id }) }}" class="histoire_btn">J'AIME</a>
+                    <a href="{{ path("avis_negatif_ajout", {'id': histoire.id }) }}" class="histoire_btn">J'AIME PAS</a>
+                </div>
             </div>
         </div>
-
     </div>
-</div>
+    {% if  parent.id is not defined %}
+        <a href="{{ path("chapitre_new",{'id':histoire.id}) }}">
+            Ajouter le chapitre principal </a>
+    {% endif %}
+    <div class="histoire__bg">
+        <div class="histoire">
+            <h2 class="histoire__title">Retrouvez tous les chapitres<br> de cette histoire</h2>
+            <div class="histoire__chapitres">
+                {% if  parent.id is defined %}
+                    <div id="pa.getOrigines.id" >
 
-{% if  parent.id is not defined %}
-    <a href="{{ path("chapitre_new",{'id':histoire.id}) }}">
-        Ajouter le chapitre principal </a>
-{% else %}
-
-<div class="histoire__bg">
-    <div class="histoire">
-        <h2 class="histoire__title">Retrouvez tous les chapitres<br> de cette histoire</h2>
-        <div class="histoire__chapitres">
-
-            {% if  parent.id is defined %}
-
-                <h2>Chapitre PREMIER Titre : {{ parent.titre }} ID = {{ parent.id }} </h2>
-                <a href="{{ path("chapitre_new",{'id':histoire.id,'parent':parent.id}) }}"> Ajouter une suite </a>
-            {% else %}
-                <a href="{{ path("chapitre_new",{'id':histoire.id}) }}">
-                    Ajouter le chapitre principal </a>
-            {% endif %}
-
-                <div id="pa.getOrigines.id" >
-                    <h2><a style="color: #B0413E" href="{{ path("chapitre_show", {'id':parent.id}) }}">{{ parent.titre }}</a></h2>
-                    <a style="color: #5eb5e0" href="{{ path("chapitre_new",{'id':histoire.id,'parent':parent.id}) }}"> Ajouter une suite </a>
-                </div>
-
+                        <h2><a style="color: #B0413E" href="{{ path("chapitre_show", {'id':parent.id}) }}">{{ parent.titre }}</a></h2>
+                        <a style="color: #5eb5e0" href="{{ path("chapitre_new",{'id':histoire.id,'parent':parent.id}) }}"> Ajouter une suite </a>
+                    </div>
+                {% endif %}
 
                 {% for chap in chapitres %}
                     <div id="pa.getOrigines.id" >
@@ -60,44 +45,18 @@
                         <a style="color: #5eb5e0" href="{{ path("chapitre_new",{'id':histoire.id,'parent':chap.id}) }}"> Ajouter une suite </a>
                     </div>
                 {% endfor %}
-            {% endif %}
-
-
-            <div class="histoire__chapitre-img">
-                {% for chap in chapitres %}
-                <div class="histoire__chapitre-content">
-
-                    <p> Chapitre {{ chap.id }}</p>
-                    <h3> {{ chap.titre }}</h3>
-                    {% if chap.photo is defined %}
-                        <tr>
-                            <td><img src="{{ base_url }}{{ chap.photoWebPath }}" /></td>
-                        </tr>
-                    {% endif %}
-
-                </div>
-                {% endfor %}
             </div>
-
         </div>
     </div>
-</div>
-
-<footer class="footer__flex">
-    <div class="footer__links">
-        <a href=""> Accueil</a>
-        <a href=""> Histoires</a>
-        <a href=""> Modifier informations</a>
-        <a href=""> A propos</a>
     </div>
-    <p>Airdrop 2019</p>
-</footer>
-
-
-</body>
-
-
-
-
+    <footer class="footer__flex">
+        <div class="footer__links">
+            <a href=""> Accueil</a>
+            <a href=""> Histoires</a>
+            <a href=""> Modifier informations</a>
+            <a href=""> A propos</a>
+        </div>
+        <p>Airdrop 2019</p>
+    </footer>
+    </body>
 {% endblock %}
-
