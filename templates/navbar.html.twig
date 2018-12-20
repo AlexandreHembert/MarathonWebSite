@@ -2,10 +2,8 @@
     <ul>
         {% if  is_granted('IS_AUTHENTICATED_FULLY') %}
             <li>Bienvenue {{ app.user.prenom }} {{ app.user.nom }},</li>
-            <li><a href="{{ path('visualisation') }}">Les histoires</a></li>
-            <li><a href="{{ path('creer_histoire') }}">Ajouter une histoire</a></li>
-            <li><a href="{{ path('creer_chapitre') }}">Ajouter un chapitre</a></li>
-            <li><a href="{{ path('lier_chapitre') }}">Lier un chapitre</a></li>
+            <li><a href="{{ path('histoire_index') }}">Les histoires</a></li>
+            <li><a href="{{ path('histoire_new') }}">Ajouter une histoire</a></li>
             <li><a href="{{ path('app_logout') }}">Logout</a></li>
             {% if  is_granted('ROLE_ADMIN') %}
                 <li><a href="{{ path('admin_registration') }}">Pannel admin</a></li>

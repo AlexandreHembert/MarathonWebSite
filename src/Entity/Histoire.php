@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @package App\Entity
@@ -12,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="histoire")
  */
 class Histoire {
+
+    const DIR_UPLOAD = 'histoire';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -28,6 +32,12 @@ class Histoire {
      * @ORM\Column(type="text", length=500)
      */
     private $pitch;
+
+    /**
+     *
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg", "image/gif"})
+     */
+    private $photoFile;
 
     /**
      * @ORM\Column(type="string", length=256)
@@ -89,15 +99,40 @@ class Histoire {
     /**
      * @return mixed
      */
-    public function getPhoto() {
+    public function getPhoto(): ?string {
         return $this->photo;
     }
 
     /**
      * @param mixed $photo
      */
-    public function setPhoto($photo): void {
+    public function setPhoto($photo): self
+    {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhotoFile()
+    {
+        return $this->photoFile;
+    }
+
+    /**
+     * @param mixed $photoFile
+     */
+    public function setPhotoFile($photoFile): self
+    {
+        $this->photoFile = $photoFile;
+
+        return $this;
+    }
+
+    public function getPhotoWebPath(){
+        return self::DIR_UPLOAD . '/' . $this->getPhoto();
     }
 
     /**

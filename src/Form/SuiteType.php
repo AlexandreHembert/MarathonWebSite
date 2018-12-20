@@ -22,19 +22,12 @@ class SuiteType extends AbstractType {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $this->chapitres = $options['chapitres'];
+        $this->chapitreSrc = $options['chapSrc'];
+        $this->chapitreDest = $options['chapDest'];
+
 
         $builder
-            /*->add('chapitreSource', null, array(
-            'expanded' => false,
-            'multiple' => false,
-            'label' => 'chapitre',
-            'class' => Chapitre::class,
-            'required' => true,
-            'query_builder' => function(ChapitreRepository $er) use($this->token){
-                return $er->findBy(["user" => $this->token->getToken()->getUser()]);
-            }
-        ))*/
+            ->add('chapitreSource')
             ->add('chapitreDestination')
             ->add('reponse');
 
@@ -47,8 +40,8 @@ class SuiteType extends AbstractType {
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
             'data_class' => Suite::class,
-            'histoire' => null,
-            'chapitres' => null,
+            'chapitreSource' => null,
+            'chapitreDestination' => null,
         ]);
     }
 

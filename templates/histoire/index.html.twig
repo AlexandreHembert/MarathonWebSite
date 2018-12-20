@@ -3,7 +3,71 @@
 {% block title %}Histoires index{% endblock %}
 
 {% block body %}
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
 
-    <h1> Liste des Histoires </h1>
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+    </style>
 
+    <div class="example-wrapper">
+
+        <div>
+            {% if app.session.flashBag.has('success') %}
+                <div class="form-group col-md-6">
+                    {% for message in app.flashes('success') %}
+
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="form-group col-md-6"></div>
+            {% endif %}
+        </div>
+
+
+        <h1> Les histoires </h1>
+
+
+        <div class="row flex">
+            {% for histoire in histoires %}
+
+                <div class="col-sm d-flex">
+
+                    <div class="card card-body flex-fill">
+                        <small> Auteur : <a
+                                    href="{{ path('histoire_user' , {id : histoire.user.id |default('Default value') } ) }}">{{ histoire.user }} </a>
+                        </small>
+                        <small> Genre : <a
+                                    href="{{ path('histoire_genre', {id : histoire.genre.id | default('Default value')}) }}"> {{ histoire.genre }} </a>
+                        </small>
+
+
+                        <h2 class="card-title">
+                            <a href="{{ path('histoire_show', {id : histoire.id}) }}">{{ histoire.titre }}</a>
+                            {% if histoire.photo is defined %}
+                                <tr>
+                                    <th>Picture</th>
+                                    <td><img src="{{ base_url }}{{ histoire.photoWebPath }}" /></td>
+                                </tr>
+                            {% endif %}
+                        </h2>
+                        <p class="card-text"> {{ histoire.pitch }} </p>
+                        <p class="card-text"><img
+                                    src="https://bathboxoffice.org.uk/wp-content/uploads/2017/10/the-octet-logo-mall-2.jpg">
+                        </p>
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

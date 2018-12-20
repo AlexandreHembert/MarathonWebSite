@@ -7,14 +7,19 @@
  */
 
 namespace App\Controller;
+
 use App\Entity\Chapitre;
 use App\Entity\Histoire;
+use App\Entity\Suite;
 use App\Form\ChapitreType;
+use App\Form\SuiteType;
 use App\Security\AppAccess;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Upload\FileChapitreTypeUpload;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 /**
  * @Route("/chapitre")
@@ -31,25 +36,34 @@ class ChapitreController extends AbstractController
             ->findAll();
         return $this->render('chapitre/index.html.twig', ['chapitres' => $chapitres]);
     }
+
     /**
-     * @Route("/new", name="chapitre_new", methods="GET|POST")
+     * @Route("/new/{id}/{parent}", name="chapitre_new", methods="GET|POST", defaults={"parent"=null}))
      */
-    public function new(Request $request): Response
+
+    public function new(Request $request, Histoire $histoire, FileChapitreTypeUpload $fileChapitreTypeUpload, Chapitre $parent = null): Response
     {
         $chapitre = new Chapitre();
-        $form = $this->createForm(ChapitreType::class, $chapitre);
+        $form = $this->createForm(ChapitreType::class, $chapitre, ["histoire" => $histoire, "chapitre" => $parent]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $fileChapitreTypeUpload->upload($chapitre);
             $em = $this->getDoctrine()->getManager();
             $em->persist($chapitre);
             $em->flush();
-            return $this->redirectToRoute('chapitre_index');
+            if($parent !== null){
+                return $this->redirectToRoute("suite_new",
+                    ['idSource' => $parent, 'idDest' => $chapitre]);
+            }else{
+                return $this->redirectToRoute("histoire_show", ['id' => $histoire->getId()]);
+            }
         }
         return $this->render('chapitre/new.html.twig', [
             'chapitre' => $chapitre,
             'formCreerChapitre' => $form->createView(),
         ]);
     }
+
     /**
      * @Route("/{id}", name="chapitre_show", methods="GET")
      */
@@ -61,12 +75,16 @@ class ChapitreController extends AbstractController
     /**
      * @Route("/{id}/edit", name="chapitre_show", methods="GET|POST")
      */
-    public function edit(Request $request, Chapitre $chapitre): Response
+
+    public function edit(Request $request, Chapitre $chapitre, FileChapitreTypeUpload $fileChapitreTypeUpload): Response
     {
+
         $this->denyAccessUnlessGranted(AppAccess::CHAPITRE_EDIT, $chapitre);
         $form = $this->createForm(ChapitreType::class, $chapitre);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $fileChapitreTypeUpload->upload($chapitre);
+
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('chapitre_index', ['id' => $chapitre->getId()]);
         }
@@ -75,5 +93,4 @@ class ChapitreController extends AbstractController
             'formModifChapitre' => $form->createView(),
         ]);
     }
-
 }
