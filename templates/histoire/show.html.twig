@@ -11,32 +11,20 @@
 {% if  parent.id is defined %}
     <h2>Chapitre PREMIER Titre : {{ parent.titre }} ID = {{ parent.id }} </h2>
     <a href="{{ path("chapitre_new",{'id':histoire.id,'parent':parent.id}) }}"> Ajouter une suite </a>
-    <h1>Les suites de {{ parent.titre }}: </h1>
+
+
     {% for pa in parent.getOrigines() %}
-        <h2>{{ pa.getChapitreDestination().titre }}</h2>
+        <div id="pa.getOrigines.id" >
+            <h1>Les suites de {{ parent.titre }}: </h1>
+
+            <h2>{{ pa.getChapitreDestination().titre }}</h2>
+        </div>
     {% endfor %}
 
 {% else %}
     <a href="{{ path("chapitre_new",{'id':histoire.id}) }}">
         Ajouter le chapitre principal </a>
 {% endif %}
-
-{% for chap in chapitres %}
-    <div style="margin:10px; border-width:1px; border-style:dotted; border-color:black">
-        <h2> Titre : {{ chap.titre }} ID = {{ chap.id }} </h2>
-        <a href="{{ path("chapitre_new",{'id':histoire.id,'parent':chap.id}) }}"> Ajouter une suite </a>
-        {% if chap.photo is defined %}
-            <tr>
-
-                <td><img src="{{ base_url }}{{ chap.photoWebPath }}" /></td>
-            </tr>
-        {% endif %}
-        <h1>Les suites de {{ chap.titre }}: </h1>
-        {% for ch in chap.getOrigines() %}
-            <h2>{{ ch.getChapitreDestination().titre }}</h2>
-        {% endfor %}
-    </div>
-{% endfor %}
 
 
 

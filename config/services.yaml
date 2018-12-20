@@ -7,7 +7,7 @@ parameters:
     locale: 'en'
     histoire_dir: "%kernel.project_dir%/public/"
     chapitre_dir: "%kernel.project_dir%/public/"
-
+    user_dir: "%kernel.project_dir%/public/"
 
 
 services:
@@ -39,4 +39,11 @@ services:
     App\Upload\FileChapitreTypeUpload:
         arguments:
             $targetDirectory: '%chapitre_dir%'
+
+
+    App\Upload\FileUserTypeUpload:
+        arguments:
+            $targetDirectory: '%user_dir%'
+
+
 

@@ -62,7 +62,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('visualisation');
         }
 
-        return $this->render(
+        return $this->renderView(
             'registration/register.html.twig',
             array('form' => $form->createView())
         );

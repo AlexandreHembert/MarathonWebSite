@@ -25,7 +25,7 @@ class ChapitreVoter extends Voter {
 
     protected function supports($attribute, $subject)
     {
-        if (!in_array($attribute, [AppAccess::CHAPITRE_EDIT, AppAccess::CHAPITRE_DELETE]))
+        if (!in_array($attribute, [AppAccess::CHAPITRE_NEW, AppAccess::CHAPITRE_EDIT, AppAccess::CHAPITRE_DELETE]))
         {
             return false;
         }
@@ -48,7 +48,6 @@ class ChapitreVoter extends Voter {
         if ($this->security->isGranted('ROLE_ADMIN') === true) {
             return true;
         }
-
 
         return $subject->getHistoire()->getUser()->getId() === $user->getId();
 

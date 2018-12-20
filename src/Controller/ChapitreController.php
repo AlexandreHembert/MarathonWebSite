@@ -40,9 +40,9 @@ class ChapitreController extends AbstractController
     /**
      * @Route("/new/{id}/{parent}", name="chapitre_new", methods="GET|POST", defaults={"parent"=null}))
      */
-
     public function new(Request $request, Histoire $histoire, FileChapitreTypeUpload $fileChapitreTypeUpload, Chapitre $parent = null): Response
     {
+        $this->denyAccessUnlessGranted(AppAccess::HISTOIRE_NEW, $histoire);
         $chapitre = new Chapitre();
         $form = $this->createForm(ChapitreType::class, $chapitre, ["histoire" => $histoire, "chapitre" => $parent]);
         $form->handleRequest($request);
@@ -53,7 +53,8 @@ class ChapitreController extends AbstractController
             $em->flush();
             if($parent !== null){
                 return $this->redirectToRoute("suite_new",
-                    ['idSource' => $parent, 'idDest' => $chapitre]);
+                    ['src' => $parent->getId(), 'dest' => $chapitre->getId()]);
+
             }else{
                 return $this->redirectToRoute("histoire_show", ['id' => $histoire->getId()]);
             }
@@ -69,16 +70,14 @@ class ChapitreController extends AbstractController
      */
     public function show(Chapitre $chapitre): Response
     {
-        return $this->render('histoire/show.html.twig', ['chapitre' => $chapitre]);
+        return $this->render('chapitre/show.html.twig', ['chapitre' => $chapitre]);
+
     }
-
     /**
-     * @Route("/{id}/edit", name="chapitre_show", methods="GET|POST")
+     * @Route("/{id}/edit", name="chapitre_edit", methods="GET|POST")
      */
-
     public function edit(Request $request, Chapitre $chapitre, FileChapitreTypeUpload $fileChapitreTypeUpload): Response
     {
-
         $this->denyAccessUnlessGranted(AppAccess::CHAPITRE_EDIT, $chapitre);
         $form = $this->createForm(ChapitreType::class, $chapitre);
         $form->handleRequest($request);

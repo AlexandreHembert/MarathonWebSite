@@ -1,4 +1,5 @@
 
+
 {% extends 'base.html.twig' %}
 
 
@@ -6,6 +7,23 @@
 <header>
     <img class="active" src="/images/logoBlack.svg" alt="Logo Base 11/19">
 </header>
+
+
+<h1> {{ chapitre.titre }} </h1>
+<p> {{ chapitre.getTexte }}</p>
+<h2>{{ chapitre.question }}</h2>
+
+{% if chapitre.question is not null %}
+    <h2>Choix : </h2>
+    {% for fils in chapitre.getOrigines() %}
+        <a href="{{ path('chapitre_show', {'id' : fils.getChapitreDestination.id}) }}">{{ fils.getReponse() }}</a>
+    {% endfor %}
+
+{% else %}
+    <h2>Fin</h2>
+{% endif %}
+
+
 <div class="chapitre">
     <div class="chapitre__grid">
         <div class="chapitre__illustration"></div>
@@ -43,4 +61,6 @@
 
 </body>
 
-</html>
+
+
+

@@ -11,6 +11,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Upload\FileUserTypeUpload;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,7 +21,7 @@ class RegistrationController extends AbstractController {
     /**
      * @Route("/register", name="user_registration")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder) {
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, FileUserTypeUpload $fileUserTypeUpload) {
         // 1) build the form
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -32,7 +33,8 @@ class RegistrationController extends AbstractController {
             // 3) Encode the password (you could also do this via Doctrine listener)
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
-
+            $fileUserTypeUpload->upload($user);
+            $user->addRoles('ROLES_USER');
             // 4) save the User!
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -41,7 +43,8 @@ class RegistrationController extends AbstractController {
             // ... do any other work - like sending them an email, etc
             $this->addFlash('success','Votre compte a bien été crée');
 
-            return $this->redirectToRoute('visualisation');
+
+            return $this->redirectToRoute("show_accueil");
         }
 
         return $this->render(

@@ -2,12 +2,20 @@
     <ul>
         {% if  is_granted('IS_AUTHENTICATED_FULLY') %}
             <li>Bienvenue {{ app.user.prenom }} {{ app.user.nom }},</li>
+            {% if app.user.photo is defined %}
+                <tr>
+
+                    <td><img src="{{ base_url }}{{ app.user.photoWebPath }}" /></td>
+                </tr>
+            {% endif %}
             <li><a href="{{ path('histoire_index') }}">Les histoires</a></li>
             <li><a href="{{ path('histoire_new') }}">Ajouter une histoire</a></li>
             <li><a href="{{ path('app_logout') }}">Logout</a></li>
             {% if  is_granted('ROLE_ADMIN') %}
-                <li><a href="{{ path('admin_registration') }}">Pannel admin</a></li>
+                <li><a href="{{ path('admin') }}">Pannel admin</a></li>
             {% endif %}
+
+
         {% else %}
             <li><a href="{{ path('app_login') }}">Login</a></li>
             <li><a href="{{ path('user_registration') }}">Register</a></li>

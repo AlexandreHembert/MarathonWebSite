@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\User;
 use App\Form\Type\RolesType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -15,7 +16,9 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-class UserType extends AbstractType {
+
+class UserType extends AbstractType
+{
 
 
     public function __construct(AuthorizationCheckerInterface $securityChecker, TokenStorageInterface $token)
@@ -24,12 +27,13 @@ class UserType extends AbstractType {
         $this->token = $token;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
         $builder
             ->add('email', EmailType::class)
             ->add('nom', TextType::class)
             ->add('prenom', TextType::class)
-
+            ->add('photoFile', FileType::class, array('label' => 'Image'))
             ->add('plainPassword', RepeatedType::class, array(
                     'type' => PasswordType::class,
                     'options' => array('attr' => array('class' => 'register__input input__passwrd')),
@@ -38,6 +42,7 @@ class UserType extends AbstractType {
                     'second_options' => array('label' => false,'attr'=>array('placeholder' => ' Confirmer le mot de passe', 'class' => 'register__input input__confirm-passwrd')),
                 )
             );
+
 
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
@@ -51,19 +56,16 @@ class UserType extends AbstractType {
         $form = $event->getForm();
         $user = $event->getData();
 
-        if($this->securityChecker->isGranted('ROLE_ADMIN') === true){
-            $form ->add('roles', RolesType::class);
+        if ($this->securityChecker->isGranted('ROLE_ADMIN') === true) {
+            $form->add('roles', RolesType::class);
 
         }
 
 
-
-
-
-
     }
 
-    public function configureOptions(OptionsResolver $resolver) {
+    public function configureOptions(OptionsResolver $resolver)
+    {
         $resolver->setDefaults(array(
             'data_class' => User::class,
         ));

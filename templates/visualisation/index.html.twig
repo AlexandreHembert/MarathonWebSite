@@ -92,6 +92,7 @@
                         type: 'GET',
                         url: '',
                         data: 'titre=' + encodeURIComponent(titre),
+
                        success: function(data) {
                             if(data != "") {
                                 $('#result->search').append(data);

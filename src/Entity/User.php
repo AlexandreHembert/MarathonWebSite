@@ -13,6 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface
 {
+
+    const DIR_UPLOAD = 'user';
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -36,6 +38,19 @@ class User implements UserInterface
      */
     private $password;
 
+
+    /**
+     *
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg", "image/gif"})
+     */
+    private $photoFile;
+
+    /**
+     * @ORM\Column(type="string", length=256)
+     */
+    private $photo;
+
+
     /**
      * @ORM\Column(type="string", length=45)
      */
@@ -53,9 +68,10 @@ class User implements UserInterface
     private $plainPassword;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Avis", mappedBy="users")
+     * @ORM\OneToMany(targetEntity="App\Entity\Avis", mappedBy="user")
      */
     private $avis;
+
 
 
     /**
@@ -192,6 +208,40 @@ class User implements UserInterface
         return $this->getNom();
     }
 
+
+    public function getPhoto() {
+        return $this->photo;
+    }
+
+    /**
+     * @param mixed $photo
+     */
+    public function setPhoto($photo): void {
+        $this->photo = $photo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhotoFile()
+    {
+        return $this->photoFile;
+    }
+
+    /**
+     * @param mixed $photoFile
+     */
+    public function setPhotoFile($photoFile): self
+    {
+        $this->photoFile = $photoFile;
+
+        return $this;
+    }
+
+    public function getPhotoWebPath(){
+        return self::DIR_UPLOAD . '/' . $this->getPhoto();
+    }
+
     /**
      * @return Collection|Avis[]
      */
@@ -204,20 +254,19 @@ class User implements UserInterface
     {
         if (!$this->avis->contains($avi)) {
             $this->avis[] = $avi;
-            $avi->setUsers($this);
+            $avi->setUser($this);
         }
 
         return $this;
     }
-
 
     public function removeAvi(Avis $avi): self
     {
         if ($this->avis->contains($avi)) {
             $this->avis->removeElement($avi);
             // set the owning side to null (unless already changed)
-            if ($avi->getUsers() === $this) {
-                $avi->setUsers(null);
+            if ($avi->getUser() === $this) {
+                $avi->setUser(null);
             }
         }
 
