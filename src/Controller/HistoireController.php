@@ -14,6 +14,7 @@ use App\Form\HistoireType;
 use App\Security\AppAccess;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use App\Upload\FileHistoireTypeUpload;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -34,15 +35,17 @@ class HistoireController extends AbstractController
             'histoires' => $histoires,
         ]);
     }
+
     /**
      * @Route("/new", name="histoire_new", methods="GET|POST")
      */
-    public function new(Request $request): Response
+    public function new(Request $request, FileHistoireTypeUpload $fileHistoireTypeUpload): Response
     {
         $histoire = new Histoire();
         $form = $this->createForm(HistoireType::class, $histoire);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $fileHistoireTypeUpload->upload($histoire);
             $em = $this->getDoctrine()->getManager();
             $em->persist($histoire);
             $em->flush();
@@ -53,26 +56,28 @@ class HistoireController extends AbstractController
             'formCreerHistoire' => $form->createView(),
         ]);
     }
+
     /**
      * @Route("/{id}", name="histoire_show", methods="GET")
      */
     public function show(Histoire $histoire): Response
     {
         $parent = $em = $this->getDoctrine()->getManager()->getRepository(Chapitre::class)
-            ->findOneBy(['histoire' => $histoire,'premier' => true]);
+            ->findOneBy(['histoire' => $histoire, 'premier' => true]);
 
-        return $this->render('histoire/show.html.twig', ['histoire' => $histoire,'parent'=> $parent]);
+        return $this->render('histoire/show.html.twig', ['histoire' => $histoire, 'parent' => $parent]);
     }
 
     /**
      * @Route("/{id}/edit", name="histoire_edit", methods="GET|POST")
      */
-    public function edit(Request $request, Histoire $histoire): Response
+    public function edit(Request $request, Histoire $histoire, FileHistoireTypeUpload $fileHistoireTypeUpload): Response
     {
         $this->denyAccessUnlessGranted(AppAccess::HISTOIRE_EDIT, $histoire);
         $form = $this->createForm(HistoireType::class, $histoire);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $fileHistoireTypeUpload->upload($histoire);
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('histoire_index', ['id' => $histoire->getId()]);
         }
@@ -81,19 +86,20 @@ class HistoireController extends AbstractController
             'formModifHistoire' => $form->createView(),
         ]);
     }
+
     /**
      * @Route("/{id}", name="histoire_delete", methods="DELETE")
      */
     public function delete(Request $request, Histoire $histoire): Response
     {
         $this->denyAccessUnlessGranted(AppAccess::HISTOIRE_DELETE, $histoire);
-        if ($this->isCsrfTokenValid('delete'.$histoire->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $histoire->getId(), $request->request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
 
             $repository = $this->getDoctrine()->getRepository(Chapitre::class);
             $chapitres = $repository->findBy(['histoire' => $histoire]);
 
-            foreach ($chapitres as $chapitre){
+            foreach ($chapitres as $chapitre) {
                 $em->remove($chapitre);
             }
 

@@ -15,6 +15,7 @@ use App\Security\AppAccess;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Upload\FileChapitreTypeUpload;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -36,12 +37,13 @@ class ChapitreController extends AbstractController
     /**
      * @Route("/new/{id}/{chapitre}", name="chapitre_new", methods="GET|POST",defaults={"chapitre"=null}))
      */
-    public function new(Request $request, Histoire $histoire, Chapitre $parent = null): Response
+    public function new(Request $request, Histoire $histoire, Chapitre $parent = null,FileChapitreTypeUpload $fileChapitreTypeUpload): Response
     {
         $chapitre = new Chapitre();
         $form = $this->createForm(ChapitreType::class, $chapitre, ["histoire" => $histoire, "chapitre" => $parent]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $fileChapitreTypeUpload->upload($chapitre);
             $em = $this->getDoctrine()->getManager();
             $em->persist($chapitre);
             $em->flush();
@@ -65,12 +67,14 @@ class ChapitreController extends AbstractController
     /**
      * @Route("/{id}/edit", name="chapitre_show", methods="GET|POST")
      */
-    public function edit(Request $request, Chapitre $chapitre): Response
+    public function edit(Request $request, Chapitre $chapitre,FileChapitreTypeUpload $fileChapitreTypeUpload): Response
     {
         $this->denyAccessUnlessGranted(AppAccess::CHAPITRE_EDIT, $chapitre);
         $form = $this->createForm(ChapitreType::class, $chapitre);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $fileChapitreTypeUpload->upload($chapitre);
+
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('chapitre_index', ['id' => $chapitre->getId()]);
         }

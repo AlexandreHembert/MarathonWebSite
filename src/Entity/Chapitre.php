@@ -10,6 +10,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Chapitre
@@ -17,6 +18,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\ChapitreRepository")
  */
 class Chapitre {
+
+    const DIR_UPLOAD = 'chapitre';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -40,6 +44,13 @@ class Chapitre {
     private $titreCourt;
 
     /**
+     *
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg", "image/gif"})
+     */
+    private $photoFile;
+
+
+    /**
      * @ORM\Column(type="string", length=256)
      */
     private $photo;
@@ -54,6 +65,8 @@ class Chapitre {
      * @ORM\Column(type="smallint")
      */
     private $premier;
+
+
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Histoire")
@@ -118,6 +131,28 @@ class Chapitre {
      */
     public function setPhoto($photo): void {
         $this->photo = $photo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhotoFile()
+    {
+        return $this->photoFile;
+    }
+
+    /**
+     * @param mixed $photoFile
+     */
+    public function setPhotoFile($photoFile): self
+    {
+        $this->photoFile = $photoFile;
+
+        return $this;
+    }
+
+    public function getPhotoWebPath(){
+        return self::DIR_UPLOAD . '/' . $this->getPhoto();
     }
 
     /**
