@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Avis;
 use App\Entity\Chapitre;
 use App\Entity\Genre;
 use App\Entity\Histoire;

@@ -1,3 +1,14 @@
+
+
+{% extends 'base.html.twig' %}
+
+
+<body>
+<header>
+    <img class="active" src="/images/logoBlack.svg" alt="Logo Base 11/19">
+</header>
+
+
 <h1> {{ chapitre.titre }} </h1>
 <p> {{ chapitre.getTexte }}</p>
 <h2>{{ chapitre.question }}</h2>
@@ -8,6 +19,48 @@
         <a href="{{ path('chapitre_show', {'id' : fils.getChapitreDestination.id}) }}">{{ fils.getReponse() }}</a>
     {% endfor %}
 
-    {% else %}
+{% else %}
     <h2>Fin</h2>
 {% endif %}
+
+
+<div class="chapitre">
+    <div class="chapitre__grid">
+        <div class="chapitre__illustration"></div>
+        <div class="chapitre__content">
+            {% for chap in chapitres %}
+            <p class="chapitre__number">Chapitre {{ chap.id }} </p>
+            <h1 class="chapitre__title">{{ chap.titre }}</h1>
+            <h2 class="chapitre__title"> {{ chap.titre_court }}</h2>
+        </div>
+    </div>
+
+</div>
+
+<div class="chapitre chapitre__bg">
+    <div class="chapitre__p">
+        <p>{{ chap.texte }}</p>
+    </div>
+    <h2 class="chapitre__question">{{ chap.question }}</h2>
+    <div class="chapitre__btns">
+        <a href="#" class="chapitre_btn">RÉPONSE 1</a>
+        <a href="#" class="chapitre_btn">RÉPONSE 2</a>
+    </div>
+
+</div>
+<footer class="footer__flex">
+    <div class="footer__links">
+        <a href=""> Accueil</a>
+        <a href=""> Histoires</a>
+        <a href=""> Modifier informations</a>
+        <a href=""> A propos</a>
+    </div>
+    <p>Airdrop 2019</p>
+</footer>
+
+
+</body>
+
+
+
+

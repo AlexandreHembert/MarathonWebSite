@@ -1,106 +1,82 @@
 
-{% include 'navbar.html.twig' %}
+{% extends 'base.html.twig' %}
+
 
 {% block title %}Les histoires{% endblock %}
 
 
 {% block stylesheets %}
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
 {% endblock %}
 
 
 {% block body %}
 
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-<div class="jumbotron">
-    <div class="container">
-        {{ form_start(formSearch) }}
-        <div class="form-row align-items-end">
-            <div class="col">
-                <div class="form-group">
-                    <input class="form-control" type="text" id="search" value="" placeholder="Rechercher">
-                </div>
-            </div>
-            <div class="col">
-                {{ form_row(formSearch.genres) }}
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <button class="btn btn-primary">
-                        Rechercher
-                    </button>
-                </div>
-            </div>
+    <title>Histoires</title>
+</head>
 
-        </div>
-        {{ form_end(formSearch) }}
+<body>
+    <header>
+        <img class="active"src="images/logo.svg" alt="Logo Base 11/19">
+    </header>
+<div class="histoires">
+    <h1 class="histoires__title">Découvrez nos histoires</h1>
+    <p class="histoires__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam consectetur orci et massa feugiat, et tempus turpis pellentesque. Phasellus non ipsum vel lectus dapibus imperdiet. Quisque augue urna.</p>
+
+    <div class="form-group">
+        <button class="btn btn-primary">
+            Rechercher
+        </button>
+        <input class="histoires__search" id="search" type='search' placeholder="recherche">
     </div>
-</div>
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-
-<div>
-    {% if app.session.flashBag.has('success')  %}
-        <div class="form-group col-md-6">
-            {% for message in app.flashes('success') %}
-
-                <div class="alert alert-success">
-                    {{ message }}
-                </div>
-            {% endfor%}
-        </div>
-        <div class="form-group col-md-6"></div>
-    {% endif %}
-</div>
+    <div class="histoires__prefilter">
+        <h2>Liste des histoires</h2><span></span>
+        <button>Filtrer</button>
+    </div>
 
 
 
-    <h1> Les histoires </h1>
-
-
-    <div class="row flex">
+    <div style="margin-top:20px">
+        <div id="result-search"></div>
+    </div>
+    <div class="histoires__cards">
         {% for histoire in histoires %}
-
-            <div class="col-sm d-flex">
-
-
-                <div class="card card-body flex-fill">
-                    <small> Auteur : <a href="{{ path('histoire_user' , {id : histoire.user.id |default('Default value') } ) }}" >{{ histoire.user }} </a> </small>
-                    <small> Genre :  <a href="{{ path('histoire_genre', {id : histoire.genre.id | default('Default value')}) }}" > {{ histoire.genre }} </a></small>
-
-                    <small> ... personne(s) recommande cette histoire  </small>
-
-                    <h2 class="card-title">
-                        {{ histoire.titre }}
-                    </h2>
-                    <p class="card-text"> {{ histoire.pitch }} </p>
-                    <p class="card-text"> <img src="https://bathboxoffice.org.uk/wp-content/uploads/2017/10/the-octet-logo-mall-2.jpg"></p>
-                    <div class="text-primary" style="font-weight: bold;font-size:2rem"> {{ histoire.actif ? 'Actif' : 'Non actif' }}  </div>
-
-
-
-
-                    {{ form_start(formAvis) }}
-                    <small> Je recommande </small>
-
-                    {{ form_row(formAvis.positif) }}
-
-                    <div class="mt-4 text-center">
-                        <button id="review_submit"  class="red_button message_submit_btn trans_300"  > Envoyer</button>
-                    </div>
-                    {{ form_end(formAvis) }}
-                </div>
-
+        <div class="histoires__card">
+            {% if histoire.photo is defined %}
+                <img class="histoires__card-img" src="{{ base_url }}{{ histoire.photoWebPath }}">
+            {% endif %}
+            <div class="histoires__card-content">
+                <p class="histoires__card-p">Histoire</p>
+                <span><a href="{{ path('histoire_show', {id: histoire.id}) }}" class="histoires__card-title"> {{ histoire.titre }}</a></span>
+                <div class="histoires__card-infos">
+                    <span class="histoires__card-author"><a href="{{ path('histoire_user' , {id : histoire.user.id |default('Default value') } ) }}" >{{ histoire.user }}</a></span>
+                    <span class="histoires__card-genre"><a href="{{ path('histoire_genre', {id : histoire.genre.id | default('Default value') } ) }}" > {{ histoire.genre }} </a></span>
+                 </div>
             </div>
+        </div>
+
         {% endfor %}
     </div>
+
+
+
 </div>
+
+
+</body>
+
+</html>
+
+
+
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -108,13 +84,15 @@
 
         $(document).ready(function() {
             $('#search').keyup(function () {
-                let words = $(this).val();
+                let titre = $(this).val();
 
-               if(words != "") {
+                console.log(titre);
+               if(titre != "") {
                    $.ajax({
                         type: 'GET',
+                        url: '',
+                        data: 'titre=' + encodeURIComponent(titre),
 
-                        data: 'histoire=' + encodeURIComponent(words),
                        success: function(data) {
                             if(data != "") {
                                 $('#result->search').append(data);
