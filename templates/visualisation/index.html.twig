@@ -24,7 +24,7 @@
 
 <body>
     <header>
-        <img class="active"src="images/logo.svg" alt="Logo Base 11/19">
+        <img class="active"src="/images/logo.svg" alt="Logo Base 11/19">
     </header>
 <div class="histoires">
     <h1 class="histoires__title">Découvrez nos histoires</h1>
@@ -38,7 +38,10 @@
     </div>
     <div class="histoires__prefilter">
         <h2>Liste des histoires</h2><span></span>
-        <button>Filtrer</button>
+        {{ form_start(formSearch) }}
+
+        <button type="submit">Filtrer</button>
+        {{ form_end(formSearch) }}
     </div>
 
 

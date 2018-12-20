@@ -44,7 +44,7 @@ class RegistrationController extends AbstractController {
             $this->addFlash('success','Votre compte a bien été crée');
 
 
-            return $this->redirectToRoute("show_accueil");
+            return $this->redirectToRoute("home");
         }
 
         return $this->render(

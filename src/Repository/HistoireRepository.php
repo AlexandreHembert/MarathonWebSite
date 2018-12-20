@@ -24,8 +24,8 @@ class HistoireRepository extends ServiceEntityRepository {
 
     /**
      * @return Query
-
-    public function findAllVisibleQuery(HistoireSearch $search) : QueryBuilder
+    */
+    public function findAllVisibleQuery(HistoireSearch $search) : Query
     {
         $query = $this->findVisibleQuery();
 
@@ -40,18 +40,15 @@ class HistoireRepository extends ServiceEntityRepository {
             }
 
         }
-
         return $query->getQuery();
     }
 
 
-*/
-    public function findVisibleQuery(): array
+
+    private function findVisibleQuery(): QueryBuilder
     {
         return $this->createQueryBuilder('p')
-            ->where('p.actif = true')
-            ->getQuery()
-            ->getResult();
+            ->where('p.actif = true');
     }
 
 
