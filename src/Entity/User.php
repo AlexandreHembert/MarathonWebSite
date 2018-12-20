@@ -68,9 +68,10 @@ class User implements UserInterface
     private $plainPassword;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Avis", mappedBy="users")
+     * @ORM\OneToMany(targetEntity="App\Entity\Avis", mappedBy="user")
      */
     private $avis;
+
 
 
     /**
@@ -241,7 +242,6 @@ class User implements UserInterface
         return self::DIR_UPLOAD . '/' . $this->getPhoto();
     }
 
-
     /**
      * @return Collection|Avis[]
      */
@@ -254,20 +254,19 @@ class User implements UserInterface
     {
         if (!$this->avis->contains($avi)) {
             $this->avis[] = $avi;
-            $avi->setUsers($this);
+            $avi->setUser($this);
         }
 
         return $this;
     }
-
 
     public function removeAvi(Avis $avi): self
     {
         if ($this->avis->contains($avi)) {
             $this->avis->removeElement($avi);
             // set the owning side to null (unless already changed)
-            if ($avi->getUsers() === $this) {
-                $avi->setUsers(null);
+            if ($avi->getUser() === $this) {
+                $avi->setUser(null);
             }
         }
 
