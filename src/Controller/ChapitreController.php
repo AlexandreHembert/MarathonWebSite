@@ -32,15 +32,9 @@ class ChapitreController extends AbstractController {
     }
 
     /**
-     * @Route("/new/{id}/{chapitre}", name="chapitre_new", methods="GET|POST",defaults={"chapitre"=null}))
+     * @Route("/new/{id}/{parent}", name="chapitre_new", methods="GET|POST", defaults={"parent"=null}))
      */
-    public function new(Request $request, Histoire $histoire, $parent = null): Response {
-        echo " Histoire ";
-        dump($histoire);
-        echo " Parent ";
-        dump($parent);
-        die();
-
+    public function new(Request $request, Histoire $histoire, Chapitre $parent = null): Response {
         $chapitre = new Chapitre();
         $form = $this->createForm(ChapitreType::class, $chapitre, ["histoire" => $histoire, "chapitre" => $parent]);
         $form->handleRequest($request);

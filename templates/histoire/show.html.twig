@@ -3,7 +3,7 @@ Affichage d'une histoire
 <h1>Histoire : {{ histoire.titre }}</h1>
 
 {% if  parent.id is defined %}
-    <a href="{{ path("chapitre_new",{'id':histoire.id,'chapitre':parent.id}) }}"> Ajouter une suite </a>
+    <a href="{{ path("chapitre_new",{'id':histoire.id,'parent':parent.id}) }}"> Ajouter une suite </a>
 {% else %}
     <a href="{{ path("chapitre_new",{'id':histoire.id}) }}">
         Ajouter le chapitre principal </a>

@@ -40,13 +40,16 @@ class ChapitreType extends AbstractType {
     public function preSetData(FormEvent $event) {
         $form = $event->getForm();
         $chapitre = $event->getData();
+        $form->remove('premier');
+
         if ($this->histoire !== null) {
             $form->remove('histoire');
             $chapitre->setHistoire($this->histoire);
         }
-        if ($this->chapitre !== null) {
-            $form->remove('premier');
+        if ($this->chapitre === null) {
             $chapitre->setPremier(true);
+        }else{
+            $chapitre->setPremier(false);
         }
     }
 }
