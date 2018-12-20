@@ -331,6 +331,8 @@ class AppFixtures extends Fixture {
         $suite->setReponse("Leur faire confiance");
         $manager->persist($suite);
 
+
+
         $manager->flush();
     }
 }
