@@ -42,6 +42,7 @@ class ChapitreController extends AbstractController
      */
     public function new(Request $request, Histoire $histoire, FileChapitreTypeUpload $fileChapitreTypeUpload, Chapitre $parent = null): Response
     {
+        $this->denyAccessUnlessGranted(AppAccess::HISTOIRE_NEW, $histoire);
         $chapitre = new Chapitre();
         $form = $this->createForm(ChapitreType::class, $chapitre, ["histoire" => $histoire, "chapitre" => $parent]);
         $form->handleRequest($request);
@@ -77,7 +78,6 @@ class ChapitreController extends AbstractController
      */
     public function edit(Request $request, Chapitre $chapitre, FileChapitreTypeUpload $fileChapitreTypeUpload): Response
     {
-
         $this->denyAccessUnlessGranted(AppAccess::CHAPITRE_EDIT, $chapitre);
         $form = $this->createForm(ChapitreType::class, $chapitre);
         $form->handleRequest($request);

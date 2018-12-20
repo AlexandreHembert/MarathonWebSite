@@ -34,6 +34,10 @@ class SuiteController extends AbstractController
         $chapSRC = $repository->find($src);
         $chapDIST = $repository->find($dest);
 
+        $this->denyAccessUnlessGranted(AppAccess::CHAPITRE_EDIT, $chapSRC);
+        $this->denyAccessUnlessGranted(AppAccess::CHAPITRE_EDIT, $chapDIST);
+
+
         $form = $this->createForm(SuiteType::class, $suite, ['src' => $chapSRC, "dest" => $chapDIST]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

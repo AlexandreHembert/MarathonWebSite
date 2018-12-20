@@ -24,7 +24,7 @@ class HistoireVoter extends Voter {
 
     protected function supports($attribute, $subject)
     {
-        if (!in_array($attribute, [AppAccess::HISTOIRE_EDIT, AppAccess::HISTOIRE_DELETE]))
+        if (!in_array($attribute, [AppAccess::HISTOIRE_NEW, AppAccess::HISTOIRE_EDIT, AppAccess::HISTOIRE_DELETE]))
         {
             return false;
         }
