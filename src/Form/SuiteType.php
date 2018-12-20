@@ -22,9 +22,8 @@ class SuiteType extends AbstractType {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $this->chapitreSrc = $options['chapSrc'];
-        $this->chapitreDest = $options['chapDest'];
-
+        $this->chapitreSrc = $options['src'];
+        $this->chapitreDest = $options['dest'];
 
         $builder
             ->add('chapitreSource')
@@ -40,8 +39,8 @@ class SuiteType extends AbstractType {
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
             'data_class' => Suite::class,
-            'chapitreSource' => null,
-            'chapitreDestination' => null,
+            'src' => null,
+            'dest' => null,
         ]);
     }
 

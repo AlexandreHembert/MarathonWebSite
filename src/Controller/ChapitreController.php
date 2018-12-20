@@ -53,7 +53,7 @@ class ChapitreController extends AbstractController
             $em->flush();
             if($parent !== null){
                 return $this->redirectToRoute("suite_new",
-                    ['idSource' => $parent, 'idDest' => $chapitre]);
+                    ['src' => $parent->getId(), 'dest' => $chapitre->getId()]);
             }else{
                 return $this->redirectToRoute("histoire_show", ['id' => $histoire->getId()]);
             }
