@@ -13,7 +13,6 @@ use Symfony\Component\Form\FormEvents;
 class ChapitreType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $this->histoire = $options['histoire'];
-
         $this->chapitre = $options['chapitre'];
 
         $builder
@@ -22,9 +21,8 @@ class ChapitreType extends AbstractType {
             ->add('titreCourt')
             ->add('photo')
             ->add('question')
-            ->add('premier',CheckboxType::class, array('required' => false))
+            ->add('premier', CheckboxType::class)
             ->add('histoire');
-
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
             array($this, 'preSetData')
@@ -36,27 +34,19 @@ class ChapitreType extends AbstractType {
             'data_class' => Chapitre::class,
             'histoire' => null,
             'chapitre' => null
-
         ]);
     }
 
-    public function preSetData(FormEvent $event)
-    {
-
+    public function preSetData(FormEvent $event) {
         $form = $event->getForm();
         $chapitre = $event->getData();
-
-        if($this->histoire !== null){
+        if ($this->histoire !== null) {
             $form->remove('histoire');
             $chapitre->setHistoire($this->histoire);
-
         }
-
-        if($this->getParent() !== null){
+        if ($this->chapitre !== null) {
             $form->remove('premier');
             $chapitre->setPremier(true);
         }
-
-
     }
 }

@@ -20,13 +20,11 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/chapitre")
  */
-class ChapitreController extends AbstractController
-{
+class ChapitreController extends AbstractController {
     /**
      * @Route("/", name="chapitre_index", methods="GET")
      */
-    public function index(): Response
-    {
+    public function index(): Response {
         $chapitres = $this->getDoctrine()
             ->getRepository(Chapitre::class)
             ->findAll();
@@ -36,8 +34,13 @@ class ChapitreController extends AbstractController
     /**
      * @Route("/new/{id}/{chapitre}", name="chapitre_new", methods="GET|POST",defaults={"chapitre"=null}))
      */
-    public function new(Request $request, Histoire $histoire, Chapitre $parent = null): Response
-    {
+    public function new(Request $request, Histoire $histoire, $parent = null): Response {
+        echo " Histoire ";
+        dump($histoire);
+        echo " Parent ";
+        dump($parent);
+        die();
+
         $chapitre = new Chapitre();
         $form = $this->createForm(ChapitreType::class, $chapitre, ["histoire" => $histoire, "chapitre" => $parent]);
         $form->handleRequest($request);
@@ -45,28 +48,25 @@ class ChapitreController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($chapitre);
             $em->flush();
-            return $this->redirectToRoute("histoire_show", ['id' => $histoire->getId()] );
+            return $this->redirectToRoute("histoire_show", ['id' => $histoire->getId()]);
         }
         return $this->render('chapitre/new.html.twig', [
             'chapitre' => $chapitre,
             'formCreerChapitre' => $form->createView(),
-
         ]);
     }
 
     /**
      * @Route("/{id}", name="chapitre_show", methods="GET")
      */
-    public function show(Chapitre $chapitre): Response
-    {
+    public function show(Chapitre $chapitre): Response {
         return $this->render('histoire/show.html.twig', ['chapitre' => $chapitre]);
     }
 
     /**
      * @Route("/{id}/edit", name="chapitre_show", methods="GET|POST")
      */
-    public function edit(Request $request, Chapitre $chapitre): Response
-    {
+    public function edit(Request $request, Chapitre $chapitre): Response {
         $this->denyAccessUnlessGranted(AppAccess::CHAPITRE_EDIT, $chapitre);
         $form = $this->createForm(ChapitreType::class, $chapitre);
         $form->handleRequest($request);
@@ -79,5 +79,4 @@ class ChapitreController extends AbstractController
             'formModifChapitre' => $form->createView(),
         ]);
     }
-
 }
