@@ -67,9 +67,9 @@ class Avis
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUsers($users): self
     {
-        $this->user = $user;
+        $this->user = $users;
 
         return $this;
     }

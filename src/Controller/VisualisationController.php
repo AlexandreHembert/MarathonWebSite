@@ -84,9 +84,15 @@ class VisualisationController extends AbstractController
      * @Route("/histoire/auteur/{id}", name="histoire_user")
      */
     public function show_histoire(User $user){
+
+        $histoires = $this->repository->findBy(['user' => $user]);
+
+
+
         return $this->render('histoire_user/show.html.twig', [
             'user' => $user,
-            'id' => $user->getId()
+            'id' => $user->getId(),
+            'histoires'=>$histoires
         ]);
     }
 
@@ -94,9 +100,13 @@ class VisualisationController extends AbstractController
      * @Route("/histoire/genre/{id}", name="histoire_genre")
      */
     public function show_genre(Genre $genre){
+
+        $histoires = $this->repository->findBy(['genre' => $genre]);
+
         return $this->render('histoire_genre/show.html.twig', [
             'genre' => $genre,
-            'id' => $genre->getId()
+            'id' => $genre->getId(),
+            'histoires'=>$histoires
         ]);
     }
 

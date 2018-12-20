@@ -1,6 +1,12 @@
-Affichage d'une histoire
+{% extends 'base.html.twig' %}
 
-<h1>Histoire : {{ histoire.titre }}</h1>
+
+{% block title %} Histoire {{ histoire.titre }} {% endblock %}
+
+
+{% block body %}
+
+
 
 {% if  parent.id is defined %}
     <h2>Chapitre PREMIER Titre : {{ parent.titre }} ID = {{ parent.id }} </h2>
@@ -22,8 +28,67 @@ Affichage d'une histoire
 
 
 
-<script>
+<body>
+<header>
+    <img class="active" src="/images/logoBlack.svg" alt="Logo Base 11/19">
+</header>
+<div class="histoire">
+    <div class="histoire__grid">
+        <div class="histoire__illustration"></div>
+        <div class="histoire__content">
+            <p class="histoire__genre">Aventure</p>
+            <h1 class="histoire__title">{{ histoire.titre }}</h1>
+            <p class="histoire__author">Cette histoire écrite par <span>John Doe</span> a été appréciée par <strong>172 personnes</strong></p>
+            <p class="histoire__txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <div class="histoire__btns">
+                <a href="" class="histoire_btn">J'AIME</a>
+                <a href="" class="histoire_btn">J'AIME PAS</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="histoire__bg">
+    <div class="histoire">
+        <h2 class="histoire__title">Retrouvez tous les chapitres<br> de cette histoire</h2>
+        <div class="histoire__chapitres">
+
+            <a href="{{ path('chapitre_new', {id : histoire.id}) }}" class="register__button" type="submit">Ajouter un chapitre</a>
 
 
-</script>
+            {% for chap in chapitres %}
+            <div class="histoire__chapitre-img">
+                <div class="histoire__chapitre-content">
+                    <p> Chapitre {{ chap.id }}</p>
+                    <h3> {{ chap.titre }}</h3>
+                    {% if chap.photo is defined %}
+                        <tr>
+                            <td><img src="{{ base_url }}{{ chap.photoWebPath }}" /></td>
+                        </tr>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<footer class="footer__flex">
+    <div class="footer__links">
+        <a href=""> Accueil</a>
+        <a href=""> Histoires</a>
+        <a href=""> Modifier informations</a>
+        <a href=""> A propos</a>
+    </div>
+    <p>Airdrop 2019</p>
+</footer>
+
+
+</body>
+
+
+
+
+{% endblock %}
 
