@@ -21,7 +21,7 @@ class HistoireRepository extends ServiceEntityRepository {
     }
 
 
-/*
+
     /**
      * @return Query
 
@@ -43,9 +43,9 @@ class HistoireRepository extends ServiceEntityRepository {
 
         return $query->getQuery();
     }
+
+
 */
-
-
     public function findVisibleQuery(): array
     {
         return $this->createQueryBuilder('p')

@@ -1,4 +1,6 @@
 
+{% include 'navbar.html.twig' %}
+
 {% block title %}Les histoires{% endblock %}
 
 
@@ -17,7 +19,9 @@
         {{ form_start(formSearch) }}
         <div class="form-row align-items-end">
             <div class="col">
-                Formulaire rechercher
+                <div class="form-group">
+                    <input class="form-control" type="text" id="search" value="" placeholder="Rechercher">
+                </div>
             </div>
             <div class="col">
                 {{ form_row(formSearch.genres) }}
@@ -97,4 +101,33 @@
         {% endfor %}
     </div>
 </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script>
+
+        $(document).ready(function() {
+            $('#search').keyup(function () {
+                let words = $(this).val();
+
+               if(words != "") {
+                   $.ajax({
+                        type: 'GET',
+                        url: {{ path('') }},
+                        data: 'histoire=' + encodeURIComponent(words),
+                       success: function(data) {
+                            if(data != "") {
+                                $('#result->search').append(data);
+                            }
+                            else {
+                                document.getElementById('result-search').innerHTML = "<div style='font-size:10px;text-align:center;margin-top:20px' > Aucune histoire </div>"
+                            }
+                       }
+                   });
+               }
+            });
+
+        });
+
+    </script>
 {% endblock %}

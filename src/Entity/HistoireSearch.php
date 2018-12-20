@@ -16,6 +16,28 @@ class HistoireSearch
     private $genres;
 
 
+    /**
+     * @var string|null
+     */
+    private $rechercher;
+
+    /**
+     * @return null|string
+     */
+    public function getRechercher()
+    {
+        return $this->rechercher;
+    }
+
+    /**
+     * @param null|string $rechercher
+     */
+    public function setRechercher($rechercher)
+    {
+        $this->rechercher = $rechercher;
+    }
+
+
     public function __construct()
     {
         $this->genres = new ArrayCollection();

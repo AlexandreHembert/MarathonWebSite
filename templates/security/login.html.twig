@@ -3,33 +3,7 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail" class="sr-only">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}">
-
-
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
-
-
-
-
-
-    <!DOCTYPE html>
-    <html lang="fr">
 
     <head>
         <meta charset="UTF-8">
@@ -45,7 +19,11 @@
     <div class="login">
         <h1 class="login__title">Bienvenue, veuillez vous connecter.</h1>
         <form action="" method="POST">
+
             <div class="input-container">
+                {% if error %}
+                    <div class="alert alert-danger" style="color:white">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
                 <input placeholder="Adresse mail"  value="{{ last_username }}" type="email" name="email" class="login__input input__mail">
                 <input placeholder="Mot de passe" type="password" name="password" class="login__input input__passwrd">
                 <input type="hidden" name="_csrf_token"
