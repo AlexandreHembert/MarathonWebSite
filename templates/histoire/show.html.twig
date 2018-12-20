@@ -40,10 +40,19 @@
         <div class="histoire__chapitres">
 
             {% if  parent.id is defined %}
+
+                <h2>Chapitre PREMIER Titre : {{ parent.titre }} ID = {{ parent.id }} </h2>
+                <a href="{{ path("chapitre_new",{'id':histoire.id,'parent':parent.id}) }}"> Ajouter une suite </a>
+            {% else %}
+                <a href="{{ path("chapitre_new",{'id':histoire.id}) }}">
+                    Ajouter le chapitre principal </a>
+            {% endif %}
+
                 <div id="pa.getOrigines.id" >
                     <h2><a style="color: #B0413E" href="{{ path("chapitre_show", {'id':parent.id}) }}">{{ parent.titre }}</a></h2>
                     <a style="color: #5eb5e0" href="{{ path("chapitre_new",{'id':histoire.id,'parent':parent.id}) }}"> Ajouter une suite </a>
                 </div>
+
 
                 {% for chap in chapitres %}
                     <div id="pa.getOrigines.id" >
@@ -52,6 +61,24 @@
                     </div>
                 {% endfor %}
             {% endif %}
+
+
+            <div class="histoire__chapitre-img">
+                {% for chap in chapitres %}
+                <div class="histoire__chapitre-content">
+
+                    <p> Chapitre {{ chap.id }}</p>
+                    <h3> {{ chap.titre }}</h3>
+                    {% if chap.photo is defined %}
+                        <tr>
+                            <td><img src="{{ base_url }}{{ chap.photoWebPath }}" /></td>
+                        </tr>
+                    {% endif %}
+
+                </div>
+                {% endfor %}
+            </div>
+
 
         </div>
     </div>

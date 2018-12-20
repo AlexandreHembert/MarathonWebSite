@@ -10,8 +10,13 @@
     <div class="chapitre__grid">
         <div class="chapitre__illustration"></div>
         <div class="chapitre__content">
+
             <p class="chapitre__number">Chapitre {{ chapitre.id }} </p>
             <h1 class="chapitre__title">{{ chapitre.titre }}</h1>
+            <h2 class="chapitre__title"> {{ chapitre.titreCourt }}</h2>
+            <p class="chapitre__number">Chapitre {{ chapitre.id }} </p>
+            <h1 class="chapitre__title">{{ chapitre.titre }}</h1>
+
         </div>
     </div>
 
@@ -20,6 +25,14 @@
 <div class="chapitre chapitre__bg">
     <div class="chapitre__p">
         <p>{{ chapitre.texte }}</p>
+    </div>
+    <h2 class="chapitre__question">{{ chapitre.question }}</h2>
+    <div class="chapitre__btns">
+        <a href="#" class="chapitre_btn">RÉPONSE 1</a>
+        <a href="#" class="chapitre_btn">RÉPONSE 2</a>
+    </div>
+
+
     </div>
 
     {% if chapitre.question is not null %}
@@ -32,6 +45,7 @@
     {% else %}
         <div class="chapitre__title" style="color: #fff;">FIN</div>
     {% endif %}
+
 
 </div>
 <footer class="footer__flex">
@@ -50,3 +64,4 @@
 
 
 
+{% endblock %}

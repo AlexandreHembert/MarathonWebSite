@@ -41,40 +41,13 @@ class VisualisationController extends AbstractController
     public function index(HistoireRepository $repo,Request $request)
     {
 
-        $avis = new Avis();
         $search = new HistoireSearch();
-
         $formSearch = $this->createForm(HistoireSearchType::class, $search);
         $formSearch->handleRequest($request);
-
-
-
-
-
-        $formAvis = $this->createForm(AvisType::class, $avis);
-        $formAvis->handleRequest($request);
-
-
-
-
-        if ($formAvis->isSubmitted() && $formAvis->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($avis);
-            $em->flush();
-
-            return $this->redirectToRoute('visualisation');
-        }
-
-
-
-
-
-
-        $histoires = $this->repository->findVisibleQuery();
+        $histoires = $this->repository->findAll();
 
         return $this->render('visualisation/index.html.twig', [
             'histoires' => $histoires,
-            'formAvis' => $formAvis->createView(),
             'formSearch' => $formSearch->createView()
         ]);
     }
