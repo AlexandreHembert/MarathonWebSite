@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Entity\Lecture;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -83,6 +84,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
+        }
+
+        $user = $token->getUser();
+        $lecture = $this->entityManager->getRepository(Lecture::class)->findOneBy(['user' => $user]);
+
+        if($lecture){
+            return new RedirectResponse($this->router->generate('chapitre_show', ["id" => $lecture->getChapitre()->getId()]));
         }
 
         // For example : return new RedirectResponse($this->router->generate('some_route'));
