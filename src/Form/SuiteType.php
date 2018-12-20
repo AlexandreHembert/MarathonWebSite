@@ -47,6 +47,16 @@ class SuiteType extends AbstractType {
     public function preSetData(FormEvent $event) {
         $form = $event->getForm();
         $suite = $event->getData();
+
+        if($this->chapitreSrc !== null){
+            $suite->setChapitreSource($this->chapitreSrc);
+            $form->remove("chapitreSource");
+        }
+        if($this->chapitreDest !== null){
+            $suite->setChapitreDestination($this->chapitreDest);
+            $form->remove("chapitreDestination");
+        }
+
     }
 }
 
