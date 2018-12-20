@@ -5,6 +5,10 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
+    histoire_dir: "%kernel.project_dir%/public/"
+    chapitre_dir: "%kernel.project_dir%/public/"
+
+
 
 services:
     # default configuration for services in *this* file
@@ -26,3 +30,13 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Upload\FileHistoireTypeUpload:
+        arguments:
+            $targetDirectory: '%histoire_dir%'
+
+
+    App\Upload\FileChapitreTypeUpload:
+        arguments:
+            $targetDirectory: '%chapitre_dir%'
+

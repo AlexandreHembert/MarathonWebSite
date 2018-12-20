@@ -19,6 +19,12 @@ Affichage d'une histoire
     <div style="margin:10px; border-width:1px; border-style:dotted; border-color:black">
         <h2> Titre : {{ chap.titre }} ID = {{ chap.id }} </h2>
         <a href="{{ path("chapitre_new",{'id':histoire.id,'parent':chap.id}) }}"> Ajouter une suite </a>
+        {% if chap.photo is defined %}
+            <tr>
+
+                <td><img src="{{ base_url }}{{ chap.photoWebPath }}" /></td>
+            </tr>
+        {% endif %}
         <h1>Les suites de {{ chap.titre }}: </h1>
         {% for ch in chap.getOrigines() %}
             <h2>{{ ch.getChapitreDestination().titre }}</h2>

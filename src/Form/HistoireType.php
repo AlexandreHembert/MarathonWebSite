@@ -6,6 +6,7 @@ use App\Entity\Histoire;
 use Doctrine\DBAL\Types\BooleanType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -27,7 +28,7 @@ class HistoireType extends AbstractType
         $builder
             ->add('titre')
             ->add('pitch')
-            ->add('photo')
+            ->add('photoFile', FileType::class, array('label' => 'Image'))
             ->add('actif',CheckboxType::class)
             ->add('genre')
             ->add('user')

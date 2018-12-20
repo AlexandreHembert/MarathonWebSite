@@ -16,16 +16,19 @@ use App\Security\AppAccess;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Upload\FileChapitreTypeUpload;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/chapitre")
  */
-class ChapitreController extends AbstractController {
+class ChapitreController extends AbstractController
+{
     /**
      * @Route("/", name="chapitre_index", methods="GET")
      */
-    public function index(): Response {
+    public function index(): Response
+    {
         $chapitres = $this->getDoctrine()
             ->getRepository(Chapitre::class)
             ->findAll();
@@ -35,17 +38,20 @@ class ChapitreController extends AbstractController {
     /**
      * @Route("/new/{id}/{parent}", name="chapitre_new", methods="GET|POST", defaults={"parent"=null}))
      */
-    public function new(Request $request, Histoire $histoire, Chapitre $parent = null): Response {
+
+    public function new(Request $request, Histoire $histoire, Chapitre $parent = null, FileChapitreTypeUpload $fileChapitreTypeUpload): Response
+    {
         $chapitre = new Chapitre();
         $form = $this->createForm(ChapitreType::class, $chapitre, ["histoire" => $histoire, "chapitre" => $parent]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $fileChapitreTypeUpload->upload($chapitre);
             $em = $this->getDoctrine()->getManager();
-            if($parent !== null){
+            if ($parent !== null) {
                 $suite = new Suite();
                 $suite->setChapitreSource($parent);
                 $suite->setChapitreDestination($chapitre);
-                $suite->setReponse($parent->getId().$chapitre->getId());
+                $suite->setReponse($parent->getId() . $chapitre->getId());
                 $em->persist($suite);
             }
 
@@ -62,18 +68,24 @@ class ChapitreController extends AbstractController {
     /**
      * @Route("/{id}", name="chapitre_show", methods="GET")
      */
-    public function show(Chapitre $chapitre): Response {
+    public function show(Chapitre $chapitre): Response
+    {
         return $this->render('histoire/show.html.twig', ['chapitre' => $chapitre]);
     }
 
     /**
      * @Route("/{id}/edit", name="chapitre_show", methods="GET|POST")
      */
-    public function edit(Request $request, Chapitre $chapitre): Response {
+
+    public function edit(Request $request, Chapitre $chapitre, FileChapitreTypeUpload $fileChapitreTypeUpload): Response
+    {
+
         $this->denyAccessUnlessGranted(AppAccess::CHAPITRE_EDIT, $chapitre);
         $form = $this->createForm(ChapitreType::class, $chapitre);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $fileChapitreTypeUpload->upload($chapitre);
+
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('chapitre_index', ['id' => $chapitre->getId()]);
         }

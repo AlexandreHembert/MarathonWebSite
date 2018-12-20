@@ -53,6 +53,12 @@
 
                         <h2 class="card-title">
                             <a href="{{ path('histoire_show', {id : histoire.id}) }}">{{ histoire.titre }}</a>
+                            {% if histoire.photo is defined %}
+                                <tr>
+                                    <th>Picture</th>
+                                    <td><img src="{{ base_url }}{{ histoire.photoWebPath }}" /></td>
+                                </tr>
+                            {% endif %}
                         </h2>
                         <p class="card-text"> {{ histoire.pitch }} </p>
                         <p class="card-text"><img
