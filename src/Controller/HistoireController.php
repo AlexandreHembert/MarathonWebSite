@@ -8,6 +8,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Avis;
 use App\Entity\Chapitre;
 use App\Entity\Histoire;
 use App\Form\HistoireType;
@@ -66,8 +67,16 @@ class HistoireController extends AbstractController
             ->findOneBy(['histoire' => $histoire, 'premier' => true]);
         $chapitres = $em = $this->getDoctrine()->getManager()->getRepository(Chapitre::class)
             ->findBy(['histoire' => $histoire, 'premier' => false]);
+        $avisG = $em = $this->getDoctrine()->getManager()->getRepository(Avis::class)
+            ->findBy(['histoires' => $histoire, 'positif' => true]);
+        $avisB = $em = $this->getDoctrine()->getManager()->getRepository(Avis::class)
+            ->findBy(['histoires' => $histoire, 'positif' => false]);
 
-        return $this->render('histoire/show.html.twig', ['histoire' => $histoire, 'parent' => $parent, 'chapitres' => $chapitres]);
+        $avisG = count($avisG);
+        $avisB = count($avisB);
+
+        return $this->render('histoire/show.html.twig',
+            ['histoire' => $histoire, 'parent' => $parent, 'chapitres' => $chapitres, 'avisG' => $avisG, 'avisB' => $avisB]);
 
     }
 
