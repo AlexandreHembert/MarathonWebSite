@@ -37,6 +37,7 @@ class SuiteController extends AbstractController
         $this->denyAccessUnlessGranted(AppAccess::CHAPITRE_EDIT, $chapSRC);
         $this->denyAccessUnlessGranted(AppAccess::CHAPITRE_EDIT, $chapDIST);
 
+        $idHistoire = $chapSRC ->getHistoire()->getId();
 
         $form = $this->createForm(SuiteType::class, $suite, ['src' => $chapSRC, "dest" => $chapDIST]);
         $form->handleRequest($request);
@@ -45,7 +46,7 @@ class SuiteController extends AbstractController
             $em->persist($suite);
             $em->flush();
 
-            // return $this->redirectToRoute("histoire_show", ['id' => $src->getHistoire()->getId()]);
+            return $this->redirectToRoute("histoire_show", ['id' => $idHistoire]);
         }
         return $this->render('suite/new.html.twig', [
             'suite' => $suite,
