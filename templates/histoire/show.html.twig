@@ -15,10 +15,10 @@
         <div class="histoire__illustration"></div>
         <div class="histoire__content">
             <p class="histoire__genre">Aventure</p>
-            <h1 class="histoire__title">{{ histoire.titre }}</h1>
+            <h1 class="histoire__title"><a style="color: #B0413E" href="{{ path("histoire_show", {'id': histoire.id}) }}">{{ histoire.titre }}</a></h1>
             <p class="histoire__author">Cette histoire écrite par <span>
-                    <strong>{{ histoire.user }}</strong></span> a été appréciée par <strong>{{ avisG }}</strong> personnes <br>
-                                                                et non appréciée par <strong>{{ avisB }}</strong> personnes</p>
+                    <strong>{{ histoire.user }}</strong></span> a été appréciée par <strong>{{ avisG|length }}</strong> personnes <br>
+                                                                et non appréciée par <strong>{{ avisB|length }}</strong> personnes</p>
             <p class="histoire__txt">{{ histoire.pitch }}</p>
             <div class="histoire__btns">
                 <a href="{{ path("avis_positif_ajout", {'id': histoire.id }) }}" class="histoire_btn">J'AIME</a>
@@ -41,14 +41,14 @@
 
             {% if  parent.id is defined %}
                 <div id="pa.getOrigines.id" >
-                    <h2>{{ parent.titre }}</h2>
-                    <a href="{{ path("chapitre_new",{'id':histoire.id,'parent':parent.id}) }}"> Ajouter une suite </a>
+                    <h2><a style="color: #B0413E" href="{{ path("chapitre_show", {'id':parent.id}) }}">{{ parent.titre }}</a></h2>
+                    <a style="color: #5eb5e0" href="{{ path("chapitre_new",{'id':histoire.id,'parent':parent.id}) }}"> Ajouter une suite </a>
                 </div>
 
                 {% for chap in chapitres %}
                     <div id="pa.getOrigines.id" >
                         <h2>{{ chap.titre }}</h2>
-                        <a href="{{ path("chapitre_new",{'id':histoire.id,'parent':chap.id}) }}"> Ajouter une suite </a>
+                        <a style="color: #5eb5e0" href="{{ path("chapitre_new",{'id':histoire.id,'parent':chap.id}) }}"> Ajouter une suite </a>
                     </div>
                 {% endfor %}
             {% endif %}

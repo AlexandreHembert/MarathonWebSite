@@ -72,9 +72,6 @@ class HistoireController extends AbstractController
         $avisB = $em = $this->getDoctrine()->getManager()->getRepository(Avis::class)
             ->findBy(['histoires' => $histoire, 'positif' => false]);
 
-        $avisG = count($avisG);
-        $avisB = count($avisB);
-
         return $this->render('histoire/show.html.twig',
             ['histoire' => $histoire, 'parent' => $parent, 'chapitres' => $chapitres, 'avisG' => $avisG, 'avisB' => $avisB]);
 

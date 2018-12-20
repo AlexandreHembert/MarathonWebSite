@@ -37,9 +37,6 @@ class AvisController extends AbstractController
         $avisB = $em = $this->getDoctrine()->getManager()->getRepository(Avis::class)
             ->findBy(['histoires' => $histoire, 'positif' => false]);
 
-        $avisG = count($avisG);
-        $avisB = count($avisB);
-
         if($avis){
             return new Response($this->renderView('histoire/show.html.twig',array("histoire" => $histoire, 'avisG' => $avisG, 'avisB' => $avisB)));
         }
@@ -70,9 +67,6 @@ class AvisController extends AbstractController
             ->findBy(['histoires' => $histoire, 'positif' => true]);
         $avisB = $em = $this->getDoctrine()->getManager()->getRepository(Avis::class)
             ->findBy(['histoires' => $histoire, 'positif' => false]);
-
-        $avisG = count($avisG);
-        $avisB = count($avisB);
 
         if($avis){
             return new Response($this->renderView('histoire/show.html.twig',array("histoire" => $histoire, 'avisG' => $avisG, 'avisB' => $avisB)));
