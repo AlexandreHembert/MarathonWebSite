@@ -12,7 +12,29 @@
 
     </head>
 
-        {% block body %}{% endblock %}
+    <header>
+        <img class="active" src="/images/logoBlack.svg" alt="Logo Base 11/19">
+        <div class="header__right">
+            <a href="{{ path('visualisation') }}">Les histoires</a>
+            <div class="header__profile">
+                <img src="/images/man-user.png" alt="Photo de profile">
+                <a href="{{ path('dashboard') }}">
+                    {{ app.user.nom }} </a>
+            </div>
+        </div>
+    </header>
+        {% block body %}
+            <header>
+            <img class="active" src="/images/logoBlack.svg" alt="Logo Base 11/19">
+            <div class="header__right">
+                <a href="{{ path('visualisation') }}">Les histoires</a>
+                <div class="header__profile">
+                    <img src="/images/man-user.png" alt="Photo de profile">
+                    <a href="{{ path('dashboard') }}">
+                        {{ app.user.nom }} </a>
+                </div>
+            </div>
+            </header>{% endblock %}
 
 
         {% block javascripts %}

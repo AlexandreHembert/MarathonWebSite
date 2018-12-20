@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<body>
+<header>
+    <a href="/"><img src="images/logoBlack.svg" alt="Logo Base 11/19" class="active" /></a>
+</header>
+<div class="homepage" style="background-image:url(/images/mountain.png);">
+    <iframe class="homepage__fixed-video" src="https://www.youtube.com/embed/msXPH5Bp6yo?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+    <div class="homepage__container">
+        <img class="homepage__birds" src="/images/birds.png" alt="oiseaux">
+        <h1 class="homepage__title"><span>L'histoire des terrils.</span></h1>
+        <p class="homepage__description">Un terril, terri ou halde est une colline artificielle construite par
+            accumulation de résidu minier, sous-produits de l'exploitation minière, composés principalement de
+            schistes, et en plus petite quantité de grès carbonifères et de résidus divers (quelquefois pollués).
+
+            <br /> Dans le Bassin minier du Nord-Pas-de-Calais, 340 terrils ont été recensés dans les années 1970,
+            à des fins d'exploitation. Entassement souvent conique, il prend le nom de verse, de terrasse ou de
+            terril plat quand l'accumulation forme un plateau.</p>
+        <div class="homepage__know-more">En savoir plus</div>
+        <div class="homepage__terrils-list">
+            <h1>Le 11/19 et ses terrils jumeaux</h1>
+            <div class="homepage__terrils-list__items terrils-list__items">
+                <div class="terrils-list__item">
+                    <img src="/images/terril.png" alt="terril" class="terrils-list__item__image">
+                    <div class="terrils-list__item__text">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Aspernatur debitis pariatur
+                        placeat officia quas fugiat, unde beatae harum odio. Architecto sed nesciunt delectus
+                        adipisci deserunt sit dicta saepe earum quasi.
+                    </div>
+                </div>
+                <div class="terrils-list__item">
+                    <img src="/images/terril.png" alt="terril" class="terrils-list__item__image">
+                    <div class="terrils-list__item__text">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Aspernatur debitis pariatur
+                        placeat officia quas fugiat, unde beatae harum odio. Architecto sed nesciunt delectus
+                        adipisci deserunt sit dicta saepe earum quasi.
+
+                    </div>
+                </div>
+                <div class="terrils-list__item">
+                    <img src="/images/terril_3.png" alt="terril" class="terrils-list__item__image">
+                    <div class="terrils-list__item__text">Ces deux terrils sont considérés comme les plus hauts
+                        d’Europe (187 mètres). Aux deux plus hauts, dits « de Lens est » et « de Lens ouest »,
+                        s’ajoute un troisième, plat, dit « de Lens nouveau ». Le tout s’étend sur une superficie de
+                        90 hectares. Ils ont la particularité de présenter des dépôts en épi sur les cônes. Ils
+                        sont compris dans le périmètre d’inscription des Monuments historiques de la Base 11/19.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="homepage__what">
+        <h1>Concretement, c’est quoi un terril ?</h1>
+        <p>Le Bassin minier compte plus de 340 terrils dont certains aménagés, selon la possibilité de
+            réhabilitation. Un terril est une petite montagne artificielle construite par accumulation des résidus
+            miniers lors de l’extraction de charbon, composés principalement de schistes, et en plus petite
+            quantité de grès carbonifères et de résidus divers.</p>
+        <div class="homepage__what__video-grid">
+            <div class="homepage__what_video-grid_video video_">
+                <iframe class="video_embed" src="https://www.youtube.com/embed/eNYD2aqeMNw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen autoplay></iframe>
+                <div class="video_caption">
+                    Découvrez une présentation ainsi que des témoignages sur les terrils de Loos en Gohelle.
+                </div>
+            </div>
+            <div class="homepage__what_video-grid_video video_">
+                <iframe class="video_embed" src="https://www.youtube.com/embed/3U5lEdETlvk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                <div class="video_caption">
+                    Découvrez une présentation ainsi que des témoignages sur les terrils de Loos en Gohelle.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="homepage__those">
+        <h1 class="homepage__those__title">
+            Quelle est l’histoire de ces terrils ?
+        </h1>
+        <p>Le Bassin minier compte plus de 340 terrils dont certains aménagés, selon la possibilité de
+            réhabilitation. Un terril est une petite montagne artificielle construite par accumulation des résidus
+            miniers lors de l’extraction de charbon, composés principalement de schistes, et en plus petite
+            quantité de grès carbonifères et de résidus divers.</p>
+        <a href="{{ path('visualisation') }}">VOIR LES HISTOIRES</a>
+    </div>
+</div>
+<footer class="footer__flex">
+
+    <div class="footer__links">
+
+        <a href="{{ path('home') }}"> Accueil</a>
+
+        <a href="{{ path('visualisation') }}"> Histoires</a>
+
+        {% if app.user %}
+
+        <a href=""> Modifier informations</a>
+
+        {% endif %}
+
+        <a href=""> A propos</a>
+
+    </div>
+
+    <p>2019 Airdrop ❤️</p>
+
+</footer>
+
+
+</html>
+
+{% endblock %}

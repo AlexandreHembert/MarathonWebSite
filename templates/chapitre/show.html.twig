@@ -2,7 +2,7 @@
 
 {% extends 'base.html.twig' %}
 
-
+{% block body %}
 <body>
 <header>
     <img class="active" src="/images/logoBlack.svg" alt="Logo Base 11/19">
@@ -28,10 +28,10 @@
     <div class="chapitre__grid">
         <div class="chapitre__illustration"></div>
         <div class="chapitre__content">
-            {% for chap in chapitres %}
-            <p class="chapitre__number">Chapitre {{ chap.id }} </p>
-            <h1 class="chapitre__title">{{ chap.titre }}</h1>
-            <h2 class="chapitre__title"> {{ chap.titre_court }}</h2>
+
+            <p class="chapitre__number">Chapitre {{ chapitre.id }} </p>
+            <h1 class="chapitre__title">{{ chapitre.titre }}</h1>
+            <h2 class="chapitre__title"> {{ chapitre.titreCourt }}</h2>
         </div>
     </div>
 
@@ -39,13 +39,14 @@
 
 <div class="chapitre chapitre__bg">
     <div class="chapitre__p">
-        <p>{{ chap.texte }}</p>
+        <p>{{ chapitre.texte }}</p>
     </div>
-    <h2 class="chapitre__question">{{ chap.question }}</h2>
+    <h2 class="chapitre__question">{{ chapitre.question }}</h2>
     <div class="chapitre__btns">
         <a href="#" class="chapitre_btn">RÉPONSE 1</a>
         <a href="#" class="chapitre_btn">RÉPONSE 2</a>
     </div>
+
 
 </div>
 <footer class="footer__flex">
@@ -64,3 +65,4 @@
 
 
 
+{% endblock %}
