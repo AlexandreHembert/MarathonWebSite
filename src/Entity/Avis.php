@@ -29,7 +29,9 @@ class Avis
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="avis")
      */
-    private $users;
+    private $user;
+
+
 
     public function getId(): ?int
     {
@@ -60,15 +62,17 @@ class Avis
         return $this;
     }
 
-    public function getUsers(): ?User
+    public function getUser(): ?User
     {
-        return $this->users;
+        return $this->user;
     }
 
-    public function setUsers(?User $users): self
+    public function setUser(?User $user): self
     {
-        $this->users = $users;
+        $this->user = $user;
 
         return $this;
     }
+
+
 }
