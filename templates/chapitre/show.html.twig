@@ -8,10 +8,18 @@
 
     <div class="chapitre">
         <div class="chapitre__grid">
-            <div class="chapitre__illustration"></div>
+
+            {% if chapitre.photo is defined %}
+
+
+
+
+            <div class="chapitre__illustration" style="background-image:url({{ base_url }}{{ chapitre.photoWebPath }})" ></div>
+
+            {% endif %}
             <div class="chapitre__content">
 
-                <p class="chapitre__number">Chapitre {{ chapitre.id }} </p>
+                <p class="chapitre__number">{{ chapitre.titrecourt }} </p>
                 <h1 class="chapitre__title">{{ chapitre.titre }}</h1>
 
             </div>
@@ -32,7 +40,8 @@
                 {% endfor %}
             </div>
         {% else %}
-            <div class="chapitre__title" style="color: #fff;">FIN</div>
+            <a href="{{ path('histoire_show', { 'id' :chapitre.histoire.id}) }}"><div class="chapitre__title" style="color: #fff;">FIN</div></a>
+
         {% endif %}
     </div>
 

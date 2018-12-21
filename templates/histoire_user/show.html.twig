@@ -7,7 +7,7 @@
 
     <body>
     <header>
-        <img class="active"src="/images/logo.svg" alt="Logo Base 11/19">
+        <a href="{{ path('home') }}"><img class="active"src="/images/logo.svg" alt="Logo Base 11/19"></a>
     </header>
     <div class="histoires">
         <h1 class="histoires__title">Découvrez nos histoires</h1>
@@ -24,7 +24,9 @@
         <div class="histoires__cards">
             {% for histoire in histoires %}
                 <div class="histoires__card">
-                    <img class="histoires__card-img" src="/histoire/histoires.png">
+                    {% if histoire.photo is defined %}
+                        <img class="histoires__card-img" src="{{ base_url }}{{ histoire.photoWebPath }}">
+                    {% endif %}
                     <div class="histoires__card-content">
                         <p class="histoires__card-p">Histoire</p>
                         <a src="" class="histoires__card-title"> {{ histoire.titre }}</a>

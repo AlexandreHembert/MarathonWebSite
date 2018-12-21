@@ -16,7 +16,9 @@
         <div class="left-side">
             <div class="left-side_fixed">
             <div class="dashboard-name">
-                <img src="/images/avatar.png" alt="avatar Antoine Parent" class="avatar">
+
+                    <img class="histoires__card-img" src="/images/man-user.png">
+
                 <h3>{{ user.nom }}</h3>
             </div>
             <div class="link">
@@ -47,7 +49,9 @@
                 {% for histoire in histoires %}
                 <div class="histoires__card">
 
-                    <img class="histoires__card-img" src="/histoire/histoires.png">
+                    {% if histoire.photo is defined %}
+                        <a href ={{ path('histoire_show', {'id': histoire.id}) }}><img class="histoires__card-img" src="{{ base_url }}{{ histoire.photoWebPath }}"></a>
+                    {% endif %}
 
                         <div class="histoires__card-menu">
 

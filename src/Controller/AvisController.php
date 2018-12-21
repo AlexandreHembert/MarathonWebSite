@@ -10,6 +10,7 @@
 namespace App\Controller;
 
 use App\Entity\Avis;
+use App\Entity\Chapitre;
 use App\Entity\Histoire;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,13 +33,18 @@ class AvisController extends AbstractController
         $avis = $em = $this->getDoctrine()->getManager()->getRepository(Avis::class)
             ->findOneBy(['histoires' => $histoire, 'user' => $this->token->getToken()->getUser(), 'positif' => true]);
 
+        $chapitres = $em = $this->getDoctrine()->getManager()->getRepository(Chapitre::class)
+            ->findBy(['histoire' => $histoire, 'premier' => false]);
+        $parent = $em = $this->getDoctrine()->getManager()->getRepository(Chapitre::class)
+            ->findOneBy(['histoire' => $histoire, 'premier' => true]);
+
         $avisG = $em = $this->getDoctrine()->getManager()->getRepository(Avis::class)
             ->findBy(['histoires' => $histoire, 'positif' => true]);
         $avisB = $em = $this->getDoctrine()->getManager()->getRepository(Avis::class)
             ->findBy(['histoires' => $histoire, 'positif' => false]);
 
         if($avis){
-            return new Response($this->renderView('histoire/show.html.twig',array("histoire" => $histoire, 'avisG' => $avisG, 'avisB' => $avisB)));
+            return new Response($this->renderView('histoire/show.html.twig',array("histoire" => $histoire, 'chapitres' => $chapitres, 'parent' => $parent, 'avisG' => $avisG, 'avisB' => $avisB)));
         }
 
         $avis = new Avis();
@@ -50,7 +56,7 @@ class AvisController extends AbstractController
         $em->persist($avis);
         $em->flush();
 
-        return new Response($this->renderView('histoire/show.html.twig',array("histoire" => $histoire, 'avisG' => $avisG, 'avisB' => $avisB)));
+        return new Response($this->renderView('histoire/show.html.twig',array("histoire" => $histoire, 'chapitres' => $chapitres, 'parent' => $parent, 'avisG' => $avisG, 'avisB' => $avisB)));
 
     }
 
@@ -62,6 +68,10 @@ class AvisController extends AbstractController
         $avis = $em = $this->getDoctrine()->getManager()->getRepository(Avis::class)
             ->findOneBy(['histoires' => $histoire, 'user' => $this->token->getToken()->getUser(), 'positif' => false]);
 
+        $chapitres = $em = $this->getDoctrine()->getManager()->getRepository(Chapitre::class)
+            ->findBy(['histoire' => $histoire, 'premier' => false]);
+        $parent = $em = $this->getDoctrine()->getManager()->getRepository(Chapitre::class)
+            ->findOneBy(['histoire' => $histoire, 'premier' => true]);
 
         $avisG = $em = $this->getDoctrine()->getManager()->getRepository(Avis::class)
             ->findBy(['histoires' => $histoire, 'positif' => true]);
@@ -69,7 +79,7 @@ class AvisController extends AbstractController
             ->findBy(['histoires' => $histoire, 'positif' => false]);
 
         if($avis){
-            return new Response($this->renderView('histoire/show.html.twig',array("histoire" => $histoire, 'avisG' => $avisG, 'avisB' => $avisB)));
+            return new Response($this->renderView('histoire/show.html.twig',array("histoire" => $histoire, 'chapitres' => $chapitres, 'parent' => $parent, 'avisG' => $avisG, 'avisB' => $avisB)));
         }
 
         $avis = new Avis();
@@ -82,7 +92,7 @@ class AvisController extends AbstractController
         $em->flush();
 
 
-        return new Response($this->renderView('histoire/show.html.twig',array("histoire" => $histoire, 'avisG' => $avisG, 'avisB' => $avisB)));
+        return new Response($this->renderView('histoire/show.html.twig',array("histoire" => $histoire, 'chapitres' => $chapitres, 'parent' => $parent, 'avisG' => $avisG, 'avisB' => $avisB)));
 
     }
 }

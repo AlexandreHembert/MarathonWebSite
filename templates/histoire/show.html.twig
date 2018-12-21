@@ -4,11 +4,20 @@
 {% block body %}
     <body>
     <header>
-        <img class="active" src="/images/logoBlack.svg" alt="Logo Base 11/19">
+        <a href="{{ path('home') }}"><img class="active" src="/images/logoBlack.svg" alt="Logo Base 11/19"></a>
     </header>
     <div class="histoire">
         <div class="histoire__grid">
-            <div class="histoire__illustration"></div>
+
+            {% if histoire.photo is defined %}
+
+
+
+
+                <div class="chapitre__illustration" style="background-image:url({{ base_url }}{{ histoire.photoWebPath }})" ></div>
+
+            {% endif %}
+
             <div class="histoire__content">
                 <p class="histoire__genre">Aventure</p>
                 <h1 class="histoire__title"><a style="color: #B0413E" href="{{ path("histoire_show", {'id': histoire.id}) }}">{{ histoire.titre }}</a></h1>
