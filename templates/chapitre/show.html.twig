@@ -14,10 +14,12 @@
 
 
 
-            <div class="chapitre__illustration" style="background-image:url({{ base_url }}{{ chapitre.photoWebPath }})" ></div>
+                <div class="chapitre__illustration"
+                     style="background-image:url({{ base_url }}{{ chapitre.photoWebPath }})"></div>
 
             {% endif %}
             <div class="chapitre__content">
+
 
                 <p class="chapitre__number">{{ chapitre.titrecourt }} </p>
                 <h1 class="chapitre__title">{{ chapitre.titre }}</h1>
@@ -36,11 +38,14 @@
             <h2 class="chapitre__question">{{ chapitre.question }}</h2>
             <div class="chapitre__btns">
                 {% for fils in chapitre.getOrigines() %}
-                    <a href="{{ path('chapitre_show', {'id' : fils.getChapitreDestination.id}) }}" class="chapitre_btn">{{ fils.getReponse() }}</a>
+                    <a href="{{ path('chapitre_show', {'id' : fils.getChapitreDestination.id}) }}"
+                       class="chapitre_btn">{{ fils.getReponse() }}</a>
                 {% endfor %}
             </div>
         {% else %}
-            <a href="{{ path('histoire_show', { 'id' :chapitre.histoire.id}) }}"><div class="chapitre__title" style="color: #fff;">FIN</div></a>
+            <a href="{{ path('histoire_show', { 'id' :chapitre.histoire.id}) }}">
+                <div class="chapitre__title" style="color: #fff;">FIN</div>
+            </a>
 
         {% endif %}
     </div>

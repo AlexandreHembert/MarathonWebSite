@@ -43,8 +43,10 @@
                 {% if  parent.id is defined %}
                     <div id="pa.getOrigines.id" >
 
-                        <h2><a style="color: #B0413E" href="{{ path("chapitre_show", {'id':parent.id}) }}">{{ parent.titre }}</a></h2>
+                        <h2><a style="color: #B0413E" href="{{ path("chapitre_show", {'id':parent.id}) }}">{{ parent.titre }}
+                            </a></h2>
                         <a style="color: #5eb5e0" href="{{ path("chapitre_new",{'id':histoire.id,'parent':parent.id}) }}"> Ajouter une suite </a>
+
                     </div>
                 {% endif %}
 

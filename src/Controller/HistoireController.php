@@ -97,7 +97,7 @@ class HistoireController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="histoire_delete", methods="DELETE")
+     * @Route("/{id}/delete", name="histoire_delete", methods="DELETE")
      */
     public function delete(Request $request, Histoire $histoire): Response
     {

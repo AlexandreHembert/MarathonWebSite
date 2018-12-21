@@ -50,7 +50,7 @@
                 <div class="histoires__card">
 
                     {% if histoire.photo is defined %}
-                        <a href ={{ path('histoire_show', {'id': histoire.id}) }}><img class="histoires__card-img" src="{{ base_url }}{{ histoire.photoWebPath }}"></a>
+                        <img class="histoires__card-img" src="{{ base_url }}{{ histoire.photoWebPath }}">
                     {% endif %}
 
                         <div class="histoires__card-menu">
@@ -63,10 +63,6 @@
                                     <li class="menu-opt">
                                         <img src="/images/edit.svg" alt="">
                                         <a href="{{ path('histoire_edit', {id: histoire.id}) }}">Modifier</a>
-                                    </li>
-                                    <li class="menu-opt">
-                                        <img src="/images/close.svg" alt="">
-                                        <a href="{{ path('histoire_delete', {id: histoire.id}) }}">Supprimer</a>
                                     </li>
                                   </ul>
                                 </div>

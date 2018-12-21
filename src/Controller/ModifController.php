@@ -43,7 +43,7 @@ class ModifController extends AbstractController{
     }
 
     /**
-     * @Route("/modif/chapitre/{id}", name="chapitre_edit", methods="GET|POST")
+     * @Route("/modif/chapitre/{id}", name="chapitre_edit hhbvtyvghtty", methods="GET|POST")
      */
     public function editChapitre(Request $request, Chapitre $chapitre): Response
     {
